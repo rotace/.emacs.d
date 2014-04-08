@@ -598,8 +598,6 @@
 (global-set-key (kbd "C-c g") 'fold-dwim-hide-all)
 
 
-;; magit
-(require 'magit)
 
 ;; octave-mode
 (autoload 'octave-mode "octave-mod" nil t)
