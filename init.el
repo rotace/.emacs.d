@@ -30,6 +30,18 @@
 ;; スタートアップメッセージを非表示
 (setq inhibit-startup-screen t)
 
+;; 起動時のサイズ，表示位置，フォントを指定
+(setq initial-frame-alist
+      (append (list
+	       '(width . 90)
+	       '(height . 70)
+	       '(top . 0)
+	       '(left . 550)
+	       ;; '(font . "VL Gothic-10")
+	       )
+	      initial-frame-alist))
+(setq default-frame-alist initial-frame-alist)
+		   
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
