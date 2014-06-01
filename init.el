@@ -487,6 +487,22 @@
 
 
 
+;; ▼要拡張機能インストール▼
+;; gtags キーバインド有効化
+(setq gtags-suggested-key-mapping t)
+
+;; gtagsインストール(gtags-mode...マイナーモード)
+(require 'gtags)
+
+;; c,c++を読み込んだ時に起動（フック）
+;; (add-hook 'c-mode-common-hook 'gtags-mode)
+;; (add-hook 'c++-mode-common-hook 'gtags-mode)
+
+;; 読み込み専用モード
+(setq view-read-only t)
+(setq gtags-read-only t)
+;; M-*で戻るとき、戻る前のバッファを削除
+(setq gtags-pop-delete t)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
