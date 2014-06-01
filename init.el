@@ -495,8 +495,8 @@
 (require 'gtags)
 
 ;; c,c++を読み込んだ時に起動（フック）
-;; (add-hook 'c-mode-common-hook 'gtags-mode)
-;; (add-hook 'c++-mode-common-hook 'gtags-mode)
+(add-hook 'c-mode-common-hook 'gtags-mode)
+(add-hook 'c++-mode-common-hook 'gtags-mode)
 
 ;; 読み込み専用モード
 (setq view-read-only t)
