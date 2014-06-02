@@ -464,16 +464,17 @@
 ;; ▼要拡張機能インストール▼
 ;;; P192-193 Anythingとタグの連携
 ;; AnythingからTAGSを利用しやすくするコマンド作成
-
+(when (and (require 'anything-gtags nil t)
+	   ;; (require 'anything-exuberant-ctags nil t)
+	   )
   ;; anything-for-tags用のソースを定義
   (setq anything-for-tags
         (list anything-c-source-imenu
-              ;; anything-c-source-gtags-select
+              anything-c-source-gtags-select
               ;; etagsを利用する場合はコメントを外す
               anything-c-source-etags-select
               ;; anything-c-source-exuberant-ctags-select
               ))
-
   ;; anything-for-tagsコマンドを作成
   (defun anything-for-tags ()
     "Preconfigured `anything' for anything-for-tags."
@@ -481,9 +482,8 @@
     (anything anything-for-tags
               (thing-at-point 'symbol)
               nil nil nil "*anything for tags*"))
-  
   ;; M-tにanything-for-currentを割り当て
-  (define-key global-map (kbd "M-t") 'anything-for-tags)
+  (define-key global-map (kbd "M-t") 'anything-for-tags))
 
 
 
