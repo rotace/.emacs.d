@@ -3,6 +3,7 @@
 ;;                           created by shibata
 ;; ***************************************************** ;;
 
+(message "...starting Emacs")
 ;; ######################################################
 ;;     起動・設定ファイル・ロードパス・画面設定
 ;; ######################################################
@@ -234,7 +235,7 @@
 
 
 
-
+(message "...setting load-path")
 ;; ######################################################
 ;;     Elisp 管理設定
 ;; ######################################################
@@ -242,15 +243,15 @@
 ;; ▼要拡張機能インストール▼
 ;;; P113 拡張機能を自動インストール──auto-install
 ;; auto-installの設定
-(when (require 'auto-install nil t)	; ←1●
-  ;; 2●インストールディレクトリを設定する 初期値は ~/.emacs.d/auto-install/
-  (setq auto-install-directory "~/.emacs.d/elisp/")
+(when (require 'auto-install nil t)	; ←1
+  ;; 2インストールディレクトリを設定する 初期値は ~/.emacs.d/auto-install/
+  ;; (setq auto-install-directory "~/.emacs.d/elisp/")
   ;; EmacsWikiに登録されているelisp の名前を取得する
   (auto-install-update-emacswiki-package-name t)
   ;; 必要であればプロキシの設定を行う
   ;; (setq url-proxy-services '(("http" . "localhost:8339")))
-  ;; 3●install-elisp の関数を利用可能にする
-  (auto-install-compatibility-setup)) ; 4●
+  ;; 3install-elisp の関数を利用可能にする
+  (auto-install-compatibility-setup)) ; 4
 
 
 ;; ▼要拡張機能インストール▼（ただし、Emacs24からはインストール不要）
@@ -303,7 +304,7 @@
 
 
 
-
+(message "...setting Anything")
 ;; ######################################################
 ;;     Anything 設定
 ;; ######################################################
@@ -376,7 +377,7 @@
 
 
 
-
+(message "...setting tools")
 ;; ######################################################
 ;;     入力支援ツール
 ;; ######################################################
@@ -472,6 +473,15 @@
 (require 'sequential-command-config)
 (sequential-command-setup-keys)
 
+;; テンプレート自動入力
+(auto-insert-mode)
+(setq auto-insert-directory "~/.emacs.d/insert/")
+(define-auto-insert "\\.sh$" "shellscript-template.sh")
+(define-auto-insert "\\.C$" "c++-template.C")
+(define-auto-insert "\\.H$" "c++-template.H")
+(define-auto-insert "\\.c$" "c-template.c")
+(define-auto-insert "\\.h$" "c-template.h")
+(define-auto-insert "\\.f90$" "fortran-template.f90")
 
 
 
@@ -481,9 +491,7 @@
 
 
 
-
-
-
+(message "...programing tools")
 ;; ######################################################
 ;;     開発支援ツール
 ;; ######################################################
@@ -562,7 +570,7 @@
 
 
 
-
+(message "...other utilities")
 ;; ######################################################
 ;;     その他ユーティリティ
 ;; ######################################################
@@ -635,7 +643,7 @@
 
 
 
-
+(message "...keybinding")
 ;; ######################################################
 ;;     その他キーバインド設定
 ;; ######################################################
@@ -666,7 +674,7 @@
 
 
 
-
+(message "...environmental dependent tools")
 ;; ######################################################
 ;;     環境依存のあるElisp (バージョン依存)
 ;; ######################################################
