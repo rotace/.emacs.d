@@ -2,4 +2,5 @@ backups/*
 undohist/*
 auto-save-list/*
 ac-comphist.dat
+*~
 

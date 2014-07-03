@@ -1,27 +1,12 @@
-;; WEB+DB PRESS plusシリーズ
-;; Emacs実践入門―思考を直感的にコード化し、開発を加速する
-;; サンプルinit.el
+;; ***************************************************** ;;
+;;       Emacs 設定ファイル
+;;                           created by shibata
+;; ***************************************************** ;;
 
-;;; 注意事項 - まずはこちらをお読みください
-
-;; このサンプルコードは、書籍『Emacs実践入門』に登場する設定
-;; コードをまとめたものです。一部の設定では、拡張機能のインス
-;; トールが必須となっているため、このファイルに書かれている内
-;; 容の一部はそのまま利用することはできません。
-;; 本書を読み進めながら、必要な設定をあなたのinit.elへコピー
-;; してご利用ください。
-;; なお、拡張機能のインストールが必要な設定については、下記の
-;; ような目印を付けております。
-;; 拡張機能のインストール方法については、該当ページに詳しく記
-;; 述していますので、ぜひ参考にしてください。
-
-;; ▼要拡張機能インストール▼
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 3.2 Emacsの起動と終了                                  ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+;; ######################################################
+;;     起動・設定ファイル・ロードパス・画面設定
+;; ######################################################
+;; ======「Emacs実践入門」3.2章 Emacsの起動と終了 ============
 ;;; P30 デバッグモードでの起動
 ;; おまじない
 (require 'cl)
@@ -29,24 +14,9 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; スタートアップメッセージを非表示
 (setq inhibit-startup-screen t)
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-;; 起動時のサイズ，表示位置，フォントを指定
-(setq initial-frame-alist
-      (append (list
-	       '(width . 90)
-	       '(height . 70)
-	       '(top . 0)
-	       '(left . 550)
-	       ;; '(font . "VL Gothic-10")
-	       )
-	      initial-frame-alist))
-(setq default-frame-alist initial-frame-alist)
-		   
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 4.1 効率的な設定ファイルの作り方と管理方法             ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ======「Emacs実践入門」4.1章 効率的な設定ファイルの作り方と管理方法==
 ;;; P60-61 Elisp配置用のディレクトリを作成
 ;; Emacs 23より前のバージョンを利用している方は
 ;; user-emacs-directory変数が未定義のため次の設定を追加
@@ -65,12 +35,9 @@
 
 ;; 引数のディレクトリとそのサブディレクトリをload-pathに追加
 (add-to-load-path "elisp" "conf" "public_repos")
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 4.2 環境に応じた設定の分岐                             ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ======「Emacs実践入門」4.2章 環境に応じた設定の分岐 =========
 ;;; P65 CUIとGUIによる分岐
 ;; ターミナル以外はツールバー、スクロールバーを非表示
 (when window-system
@@ -83,12 +50,9 @@
 (unless (eq window-system 'ns)
   ;; menu-barを非表示
   (menu-bar-mode 0))
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 5.3 環境変数の設定                                     ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ======「Emacs実践入門」5.3章 環境変数の設定=================
 ;;; P82-83 パスの設定
 (add-to-list 'exec-path "/opt/local/bin")
 (add-to-list 'exec-path "/usr/local/bin")
@@ -109,26 +73,9 @@
 (when (eq window-system 'w32)
   (set-file-name-coding-system 'cp932)
   (setq locale-coding-system 'cp932))
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 5.4 フレームに関する設定                               ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; maximize the window
-(defun my-fullscreen ()
-  (interactive)
-  (let ((fullscreen (frame-parameter (selected-frame) 'fullscreen)))
-    (cond
-     ((null fullscreen)
-     (set-frame-parameter (selected-frame) 'fullscreen 'fullboth))
-    (t
-     (set-frame-parameter (selected-frame) 'fullscreen 'nil))))
-  (redisplay))
-
-(global-set-key [f11] 'my-fullscreen)
-
-
+; ======「Emacs実践入門」5.4章 フレームに関する設定===============
 ;;; P87-89 モードラインに関する設定
 ;; カラム番号も表示
 (column-number-mode t)
@@ -156,14 +103,9 @@
 (setq frame-title-format "%f")
 ;; 行番号を常に表示する
 ;; (global-linum-mode t)
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 5.6 表示・装飾に関する設定                             ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ======「Emacs実践入門」5.6章 表示・装飾に関する設定===========
 ;;; P95-96 フェイス
 ;; リージョンの背景色を変更
 ;; (set-face-background 'region "darkgreen")
@@ -176,11 +118,9 @@
   (color-theme-initialize)
   ;; テーマ変更する
   (color-theme-clarity))
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 5.7 ハイライトの設定                                   ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ======「Emacs実践入門」5.7章 ハイライトの設定================
 ;;; P100 現在行のハイライト
 (defface my-hl-line-face
   ;; 背景がdarkならば背景色を紺に
@@ -203,12 +143,9 @@
 ;; フェイスを変更する
 (set-face-background 'show-paren-match-face nil)
 (set-face-underline-p 'show-paren-match-face "yellow")
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 5.8 バックアップとオートセーブ                         ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ======「Emacs実践入門」5.8章 バックアップとオートセーブ========
 ;;; P102-103 バックアップとオートセーブの設定
 ;; バックアップファイルを作成しない
 (setq make-backup-files nil) ; 初期値はt
@@ -232,12 +169,9 @@
 ;; (setq auto-save-timeout 15)
 ;; オートセーブファイル作成までのタイプ間隔
 ;; (setq auto-save-interval 60)
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 5.9 フック                                             ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ======「Emacs実践入門」5.9章 フック========================
 ;; ファイルが #! から始まる場合、+xを付けて保存する
 (add-hook 'after-save-hook
           'executable-make-buffer-file-executable-if-script-p)
@@ -252,12 +186,59 @@
 
 ;; emacs-lisp-modeのフックをセット
 (add-hook 'emacs-lisp-mode-hook 'elisp-mode-hooks)
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 6.1 Elispをインストールしよう                          ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; 起動時のサイズ，表示位置，フォントを指定
+(setq initial-frame-alist
+      (append (list
+	       '(width . 90)
+	       '(height . 70)
+	       '(top . 0)
+	       '(left . 550)
+	       ;; '(font . "VL Gothic-10")
+	       )
+	      initial-frame-alist))
+(setq default-frame-alist initial-frame-alist)
+
+
+;; ウィンドウ最大化
+(defun my-fullscreen ()
+  (interactive)
+  (let ((fullscreen (frame-parameter (selected-frame) 'fullscreen)))
+    (cond
+     ((null fullscreen)
+     (set-frame-parameter (selected-frame) 'fullscreen 'fullboth))
+    (t
+     (set-frame-parameter (selected-frame) 'fullscreen 'nil))))
+  (redisplay))
+(global-set-key [f11] 'my-fullscreen)	;[F11]: ショートカットキー
+
+
+;; バッファ名表示設定
+;; make the names of buffers clearly
+(require 'uniquify)
+;; filename<dir>
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+;; ignore the buffer which is surround by *
+(setq uniquify-ignore-buffers-re "*[^*]+*")
+
+
+
+
+
+
+
+
+
+
+
+;; ######################################################
+;;     Elisp 管理設定
+;; ######################################################
+;; ======「Emacs実践入門」6.1章 Elispをインストールしよう=======
 ;; ▼要拡張機能インストール▼
 ;;; P113 拡張機能を自動インストール──auto-install
 ;; auto-installの設定
@@ -282,12 +263,51 @@
   (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
   ;; インストールしたパッケージにロードパスを通して読み込む
   (package-initialize))
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+;; バージョン依存対策コマンド
+;; 参考: http://www.sodan.org/~knagano/emacs/dotemacs.html
+;; 1.関数が存在するときだけ実行する．(car の fboundp を調べるだけ)
+;; -----------------------------------------------------
+;; 使い方　
+(defmacro exec-if-bound (sexplist)
+  `(if (fboundp (car ',sexplist))
+       ,sexplist))
+;; 2.add-hook のエイリアス．引数を関数にパックしてhookに追加する
+;; -----------------------------------------------------
+;; 使い方 add-hook で失敗する　->　defun-add-hook
+(defmacro defun-add-hook (hookname &rest sexplist)
+  `(add-hook ,hookname
+	     (function (lambda () ,@sexplist))))
+;; 3.安全なautoload
+;; -----------------------------------------------------
+;; 使い方　autoload で失敗する　-> autoload-if-found
+;;   "set autoload iff. FILE has found."
+(defun autoload-if-found (function file &optional docstring interactive type)
+  (and (locate-library file)
+       (autoload function file docstring interactive type)))
 
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 6.2 統一したインタフェースでの操作                     ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; (install-elisp-from-emacswiki "minor-mode-hack.el")
+(require 'minor-mode-hack)
+
+
+
+
+
+
+
+
+
+
+
+
+;; ######################################################
+;;     Anything 設定
+;; ######################################################
+;; ======「Emacs実践入門」6.2章 統一したインタフェースでの操作====
 ;; ▼要拡張機能インストール▼
 ;;; P122-129 候補選択型インタフェース──Anything
 ;; (auto-install-batch "anything")
@@ -347,11 +367,20 @@
    anything-c-moccur-enable-initial-pattern t)
   ;; C-M-oにanything-c-moccur-occur-by-moccurを割り当てる
   (global-set-key (kbd "C-M-o") 'anything-c-moccur-occur-by-moccur))
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 6.3 入力の効率化                                       ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+
+
+
+
+;; ######################################################
+;;     入力支援ツール
+;; ######################################################
+;; ======「Emacs実践入門」6.3章 入力の効率化==================
 ;; ▼要拡張機能インストール▼
 ;;; P130-131 利用可能にする
 (when (require 'auto-complete-config nil t)
@@ -359,12 +388,9 @@
     "~/.emacs.d/elisp/ac-dict")
   (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
   (ac-config-default))
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 6.4 検索と置換の拡張                                   ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ======「Emacs実践入門」6.4章 検索と置換の拡張===============
 ;; ▼要拡張機能インストール▼
 ;;; P132 検索結果をリストアップする──color-moccur
 ;; color-moccurの設定
@@ -394,12 +420,9 @@
 ;;; P136 grepの結果を直接編集──wgrep
 ;; wgrepの設定
 (require 'wgrep nil t)
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 6.5 さまざまな履歴管理                                 ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ======「Emacs実践入門」6.5章 さまざまな履歴管理==============
 ;; ▼要拡張機能インストール▼
 ;; (install-elisp "http://www.emacswiki.org/emacs/download/redo+.el")
 (when (require 'redo+ nil t)
@@ -421,7 +444,6 @@
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode))
 
-
 ;; ▼要拡張機能インストール▼
 ;;; P139-140 カーソルの移動履歴──point-undo
 ;; point-undoの設定
@@ -432,23 +454,40 @@
   (define-key global-map (kbd "M-[") 'point-undo)
   (define-key global-map (kbd "M-]") 'point-redo)
   )
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 6.8 特殊な範囲の編集                                   ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ======「Emacs実践入門」6.8章 特殊な範囲の編集===============
 ;;; P151 矩形編集──cua-mode
 ;; cua-modeの設定
 (cua-mode t) ; cua-modeをオン
 (setq cua-enable-cua-keys nil) ; CUAキーバインドを無効にする
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+;;; カーソル位置のファイルパスやアドレスを "C-x C-f" で開く
+(ffap-bindings)
+
+;; C-a C-a で先頭，C-e C-e で末尾に飛ぶ
+;; let "C-a C-a" go to end of current buffer
+;; (auto-install-batch "sequential-command")
+(require 'sequential-command-config)
+(sequential-command-setup-keys)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 7.3 タグによるコードリーディング                       ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+
+
+
+
+
+
+
+
+
+;; ######################################################
+;;     開発支援ツール
+;; ######################################################
+;; ======「Emacs実践入門」7.3章 タグによるコードリーディング======
 ;; ▼要拡張機能インストール▼
 ;;; P190-191 ctagsとEmacsとの連携
 ;; ctags.elの設定
@@ -484,62 +523,72 @@
               nil nil nil "*anything for tags*"))
   ;; M-tにanything-for-currentを割り当て
   (define-key global-map (kbd "M-t") 'anything-for-tags))
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+;; 文章を折りたたむ fold-dwim
+;; (install-elisp "http://www.dur.ac.uk/p.j.heslin/Software/Emacs/Download/fold-dwim.el")
+(require 'hideshow)
+(require 'fold-dwim)
+(global-set-key (kbd "C-c h") 'hs-minor-mode)
+(global-set-key (kbd "C-c f") 'fold-dwim-toggle)
+(global-set-key (kbd "C-c g") 'fold-dwim-hide-all)
+
+;;; 改行やタブを可視化する whitespace-mode
+(setq whitespace-display-mappings
+      '((space-mark ?\x3000 [?\□]) ; zenkaku space
+        (newline-mark 10 [8629 10]) ; newlne
+        (tab-mark 9 [187 9] [92 9]) ; tab » 187
+        )
+      whitespace-style
+      '(spaces
+        ;; tabs
+        trailing
+        newline
+        space-mark
+        tab-mark
+        newline-mark))
+;; whitespace-modeで全角スペース文字を可視化　
+;; (setq whitespace-space-regexp "\\(\x3000+\\)")
+;; F6 で whitespace-mode をトグル
+(define-key global-map (kbd "<f6>") 'global-whitespace-mode)
 
 
 
-;; ▼要拡張機能インストール▼
-;; gtags キーバインド有効化
-(setq gtags-suggested-key-mapping t)
-
-;; gtagsインストール(gtags-mode...マイナーモード)
-(require 'gtags)
-
-;; c,c++を読み込んだ時に起動（フック）
-(add-hook 'c-mode-common-hook 'gtags-mode)
-(add-hook 'c++-mode-common-hook 'gtags-mode)
-
-;; 読み込み専用モード
-(setq view-read-only t)
-(setq gtags-read-only t)
-;; M-*で戻るとき、戻る前のバッファを削除
-(setq gtags-pop-delete t)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 7.6 差分とマージ                                       ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+
+
+
+
+;; ######################################################
+;;     その他ユーティリティ
+;; ######################################################
+;; ======「Emacs実践入門」7.6章 差分とマージ==================
 ;;; P206 同一フレーム内にコントロールパネルを表示する
 ;; ediffコントロールパネルを別フレームにしない
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 7.9 シェルの利用                                       ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ======「Emacs実践入門」7.9章 シェルの利用==================
 ;; ▼要拡張機能インストール▼
 ;;; ターミナルの利用 multi-term
 ;; multi-termの設定
 (when (require 'multi-term nil t)
   ;; 使用するシェルを指定
   (setq multi-term-program "/bin/bash"))
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 7.10 TRAMPによるサーバ接続                             ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ======「Emacs実践入門」7.10章 TRAMPによるサーバ接続=========
 ;;; P225 バックアップファイルを作成しない
 ;; TRAMPでバックアップファイルを作成しない
 (add-to-list 'backup-directory-alist
              (cons tramp-file-name-regexp nil))
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 7.11 ドキュメント閲覧・検索                            ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ======「Emacs実践入門」7.11章 ドキュメント閲覧・検索==========
 ;;; P226-228 Emacs版manビューア（WoMan）の利用
 ;; キャッシュを作成
 (setq woman-cache-filename "~/.emacs.d/.wmncach.el")
@@ -568,65 +617,97 @@
 
 ;; Ctrl-c+dにanything-for-documentを割り当て
 (define-key global-map (kbd "C-c d") 'anything-for-document)
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;            オマケ                                     ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; カーソル位置のファイルパスやアドレスを "C-x C-f" で開く
-(ffap-bindings)
-
-
-;; make the names of buffers clearly
-(require 'uniquify)
-;; filename<dir>
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-;; ignore the buffer which is surround by *
-(setq uniquify-ignore-buffers-re "*[^*]+*")
-
-
-;;; 改行やタブを可視化する whitespace-mode
-(setq whitespace-display-mappings
-      '((space-mark ?\x3000 [?\□]) ; zenkaku space
-        (newline-mark 10 [8629 10]) ; newlne
-        (tab-mark 9 [187 9] [92 9]) ; tab » 187
-        )
-      whitespace-style
-      '(spaces
-        ;; tabs
-        trailing
-        newline
-        space-mark
-        tab-mark
-        newline-mark))
-;; whitespace-modeで全角スペース文字を可視化　
-;; (setq whitespace-space-regexp "\\(\x3000+\\)")
-;; F6 で whitespace-mode をトグル
-(define-key global-map (kbd "<f6>") 'global-whitespace-mode)
-
-
-;; let "C-a C-a" go to end of current buffer
-;; (auto-install-batch "sequential-command")
-(require 'sequential-command-config)
-(sequential-command-setup-keys)
-
-
-;; (install-elisp-from-emacswiki "minor-mode-hack.el")
-(require 'minor-mode-hack)
-
-
-;; fold the sentences and hide it
-;; (install-elisp "http://www.dur.ac.uk/p.j.heslin/Software/Emacs/Download/fold-dwim.el")
-(require 'hideshow)
-(require 'fold-dwim)
-(global-set-key (kbd "C-c h") 'hs-minor-mode)
-(global-set-key (kbd "C-c f") 'fold-dwim-toggle)
-(global-set-key (kbd "C-c g") 'fold-dwim-hide-all)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+;; ######################################################
+;;     その他キーバインド設定
+;; ######################################################
+;; ======「Emacs実践入門」5.2章 キーバインドの設定===============
+;;; P80 C-hをバックスペースにする
+;; 入力されるキーシーケンスを置き換える
+;; ?\C-?はDELのキーシケンス
+(keyboard-translate ?\C-h ?\C-?)
+
+;;; P79-81 お勧めのキー操作
+;; C-mにnewline-and-indentを割り当てる。
+;; 先ほどとは異なりglobal-set-keyを利用
+(global-set-key (kbd "C-m") 'newline-and-indent)
+;; 折り返しトグルコマンド
+(define-key global-map (kbd "C-c l") 'toggle-truncate-lines)
+;; "C-t" でウィンドウを切り替える。初期値はtranspose-chars
+(define-key global-map (kbd "C-t") 'other-window)
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+;; M-k でカレントバッファを閉じる
+(define-key global-map (kbd "M-k") 'kill-this-buffer)
+;; C-c cでcompileコマンドを呼び出す
+(define-key mode-specific-map "c" 'compile)
+;; C-c C-zでshellコマンドを呼び出す
+(define-key mode-specific-map "\C-z" 'multi-term)
+
+
+
+
+
+
+;; ######################################################
+;;     環境依存のあるElisp (バージョン依存)
+;; ######################################################
+
+;; ユーザー初期設定ファイルの指定
+(setq user-init-file
+      (concat "~/.emacs.d/emacs"(number-to-string emacs-major-version)
+	      "-init.el"))
+(if (file-exists-p (expand-file-name user-init-file))
+    (load-file (expand-file-name user-init-file)))
+;; ;; カスタム設定ファイルの指定
+;; (setq user-init-file
+;;       (concat "~/.emacs.d/emacs"(number-to-string emacs-major-version)
+;; 	      "-custom.el"))
+;; (if (file-exists-p (expand-file-name custom-file))
+;;     (load-file (expand-file-name custom-file)))
+
+
+
+     
+;; ######################################################
+;;     環境依存のあるElisp (外部ツール依存)
+;; ######################################################
+
+;; $$$$$$$$ Gtags $$$$$$$$$
+;; ▼要拡張機能インストール▼
+;; gtags キーバインド有効化
+(setq gtags-suggested-key-mapping t)
+;; gtagsインストール(gtags-mode...マイナーモード)
+(require 'gtags)
+;; c,c++を読み込んだ時に起動（フック）
+(add-hook 'c-mode-common-hook 'gtags-mode)
+(add-hook 'c++-mode-common-hook 'gtags-mode)
+;; 読み込み専用モード
+(setq view-read-only t)
+(setq gtags-read-only t)
+;; M-*で戻るとき、戻る前のバッファを削除
+(setq gtags-pop-delete t)
+
+
+;; $$$$$$$$ Octave $$$$$$$$
 ;; octave-mode
 (autoload 'octave-mode "octave-mod" nil t)
 (setq auto-mode-alist
@@ -638,7 +719,8 @@
 	    (if (eq window-system 'x)
 		(font-lock-mode 1))))
 
-;; yatex
+
+;; $$$$$$$$ Yatex $$$$$$$$$$
 (setq auto-mode-alist
       (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
 (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
@@ -673,40 +755,10 @@
 ;; (setq reftex-use-multiple-selection-buffers t)
 
 ;;RefTeXにおいて数式の引用を\eqrefにする
-;; (setq reftex-label-alist '((nil ?e nil "~\\eqref{%s}" nil nil)))
+;; (setq reftex-label-alist '((nil ?e nil "=\\eqref{%s}" nil nil)))
 
 ; [prefix] 英字 コマンドを[prefix] C-英字 に変更する
 ;; (setq YaTeX-inihibit-prefix-letter t)
 
 ; 自動改行を抑制する
 ;; (add-hook 'yatex-mode-hook'(lambda ()(setq auto-fill-function nill)))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 5.2 キーバインドの設定                                 ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; P80 C-hをバックスペースにする
-;; 入力されるキーシーケンスを置き換える
-;; ?\C-?はDELのキーシケンス
-(keyboard-translate ?\C-h ?\C-?)
-
-;;; P79-81 お勧めのキー操作
-;; C-mにnewline-and-indentを割り当てる。
-;; 先ほどとは異なりglobal-set-keyを利用
-(global-set-key (kbd "C-m") 'newline-and-indent)
-;; 折り返しトグルコマンド
-(define-key global-map (kbd "C-c l") 'toggle-truncate-lines)
-;; "C-t" でウィンドウを切り替える。初期値はtranspose-chars
-(define-key global-map (kbd "C-t") 'other-window)
-;; M-k でカレントバッファを閉じる
-(define-key global-map (kbd "M-k") 'kill-this-buffer)
-;; C-c cでcompileコマンドを呼び出す
-(define-key mode-specific-map "c" 'compile)
-;; C-c C-zでshellコマンドを呼び出す
-(define-key mode-specific-map "\C-z" 'multi-term)
-
-
-
-
-
-     
