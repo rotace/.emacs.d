@@ -5,7 +5,7 @@
 
 (message "...starting Emacs")
 ;; ######################################################
-;;     起動・設定ファイル・ロードパス・画面設定
+;;     起動・設定ファイル・ロードパス
 ;; ######################################################
 ;; ======「Emacs実践入門」3.2章 Emacsの起動と終了 ============
 ;;; P30 デバッグモードでの起動
@@ -75,6 +75,53 @@
   (set-file-name-coding-system 'cp932)
   (setq locale-coding-system 'cp932))
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+
+
+
+
+(message "...screen config")
+;; ########s##############################################
+;;     画面設定
+;; ######################################################
+;; 起動時のサイズ，表示位置，フォントを指定
+(setq initial-frame-alist
+      (append (list
+	       '(width . 90)
+	       '(height . 70)
+	       '(top . 0)
+	       '(left . 550)
+	       ;; '(font . "VL Gothic-10")
+	       )
+	      initial-frame-alist))
+(setq default-frame-alist initial-frame-alist)
+
+;; ウィンドウ最大化
+(defun my-fullscreen ()
+  (interactive)
+  (let ((fullscreen (frame-parameter (selected-frame) 'fullscreen)))
+    (cond
+     ((null fullscreen)
+     (set-frame-parameter (selected-frame) 'fullscreen 'fullboth))
+    (t
+     (set-frame-parameter (selected-frame) 'fullscreen 'nil))))
+  (redisplay))
+(global-set-key [f11] 'my-fullscreen)	;[F11]: ショートカットキー
+
+;; バッファ名表示設定
+;; make the names of buffers clearly
+(require 'uniquify)
+;; filename<dir>
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+;; ignore the buffer which is surround by *
+(setq uniquify-ignore-buffers-re "*[^*]+*")
+
+
+
 
 ; ======「Emacs実践入門」5.4章 フレームに関する設定===============
 ;;; P87-89 モードラインに関する設定
@@ -146,6 +193,14 @@
 (set-face-underline-p 'show-paren-match-face "yellow")
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+
+
+
+
+(message "...backup autosave hook")
+;; ######################################################
+;;     バックアップ・オートセーブ・フック
+;; ######################################################
 ;; ======「Emacs実践入門」5.8章 バックアップとオートセーブ========
 ;;; P102-103 バックアップとオートセーブの設定
 ;; バックアップファイルを作成しない
@@ -192,39 +247,6 @@
 
 
 
-;; 起動時のサイズ，表示位置，フォントを指定
-(setq initial-frame-alist
-      (append (list
-	       '(width . 90)
-	       '(height . 70)
-	       '(top . 0)
-	       '(left . 550)
-	       ;; '(font . "VL Gothic-10")
-	       )
-	      initial-frame-alist))
-(setq default-frame-alist initial-frame-alist)
-
-
-;; ウィンドウ最大化
-(defun my-fullscreen ()
-  (interactive)
-  (let ((fullscreen (frame-parameter (selected-frame) 'fullscreen)))
-    (cond
-     ((null fullscreen)
-     (set-frame-parameter (selected-frame) 'fullscreen 'fullboth))
-    (t
-     (set-frame-parameter (selected-frame) 'fullscreen 'nil))))
-  (redisplay))
-(global-set-key [f11] 'my-fullscreen)	;[F11]: ショートカットキー
-
-
-;; バッファ名表示設定
-;; make the names of buffers clearly
-(require 'uniquify)
-;; filename<dir>
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-;; ignore the buffer which is surround by *
-(setq uniquify-ignore-buffers-re "*[^*]+*")
 
 
 
