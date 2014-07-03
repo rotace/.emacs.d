@@ -35,7 +35,7 @@
             (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; 引数のディレクトリとそのサブディレクトリをload-pathに追加
-(add-to-load-path "elisp" "conf" "public_repos")
+(add-to-load-path "elisp" "conf" "public_repos" "auto-install")
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ;; ======「Emacs実践入門」4.2章 環境に応じた設定の分岐 =========
@@ -505,7 +505,21 @@
 (define-auto-insert "\\.h$" "c-template.h")
 (define-auto-insert "\\.f90$" "fortran-template.f90")
 
-
+;; $$$$$$$　スニペット　$$$$$$$
+;; 略語展開（スニペット展開）
+(require 'yasnippet)
+(setq yas-snippet-dirs
+      '("~/.emacs.d/snippets"		;作成するスニペットを格納
+	"~/.emacs.d/elisp/yasnippet/snippets"))
+(yas-global-mode 1)
+;; 単語展開キーバインド
+(custom-set-variables '(yas-trigger-key "TAB"))
+;; 既存スニペットを挿入する
+(define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet)
+;; 新規スニペットを作成するバッファを用意する
+(define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
+;; 既存スニペットを閲覧・編集する
+(define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
 
 
 
