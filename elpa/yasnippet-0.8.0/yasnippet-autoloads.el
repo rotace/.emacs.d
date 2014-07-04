@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads (yas-global-mode yas-minor-mode) "yasnippet" "yasnippet.el"
-;;;;;;  (21430 53095))
+;;;;;;  (21431 14620))
 ;;; Generated autoloads from yasnippet.el
 
 (autoload 'yas-minor-mode "yasnippet" "\
@@ -34,13 +34,9 @@ or call the function `yas-global-mode'.")
 (custom-autoload 'yas-global-mode "yasnippet" nil)
 
 (autoload 'yas-global-mode "yasnippet" "\
-Toggle Yas minor mode in all buffers.
-With prefix ARG, enable Yas-Global mode if ARG is positive;
-otherwise, disable it.  If called from Lisp, enable the mode if
-ARG is omitted or nil.
-
-Yas minor mode is enabled in all buffers where
-`yas-minor-mode-on' would do it.
+Toggle Yas minor mode in every possible buffer.
+With prefix ARG, turn Yas-Global mode on if and only if ARG is positive.
+Yas minor mode is enabled in all buffers where `yas-minor-mode-on' would do it.
 See `yas-minor-mode' for more information on Yas minor mode.
 
 \(fn &optional ARG)" t nil)
@@ -48,7 +44,7 @@ See `yas-minor-mode' for more information on Yas minor mode.
 ;;;***
 
 ;;;### (autoloads nil nil ("dropdown-list.el" "yasnippet-pkg.el")
-;;;;;;  (21430 53098 237166))
+;;;;;;  (21431 14622 913035))
 
 ;;;***
 

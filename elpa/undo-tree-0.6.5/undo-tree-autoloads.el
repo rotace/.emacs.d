@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads (global-undo-tree-mode undo-tree-mode) "undo-tree"
-;;;;;;  "undo-tree.el" (21430 52668))
+;;;;;;  "undo-tree.el" (21431 14574))
 ;;; Generated autoloads from undo-tree.el
 
 (autoload 'undo-tree-mode "undo-tree" "\
@@ -37,20 +37,16 @@ or call the function `global-undo-tree-mode'.")
 (custom-autoload 'global-undo-tree-mode "undo-tree" nil)
 
 (autoload 'global-undo-tree-mode "undo-tree" "\
-Toggle Undo-Tree mode in all buffers.
-With prefix ARG, enable Global-Undo-Tree mode if ARG is positive;
-otherwise, disable it.  If called from Lisp, enable the mode if
-ARG is omitted or nil.
-
-Undo-Tree mode is enabled in all buffers where
-`turn-on-undo-tree-mode' would do it.
+Toggle Undo-Tree mode in every possible buffer.
+With prefix ARG, turn Global-Undo-Tree mode on if and only if ARG is positive.
+Undo-Tree mode is enabled in all buffers where `turn-on-undo-tree-mode' would do it.
 See `undo-tree-mode' for more information on Undo-Tree mode.
 
 \(fn &optional ARG)" t nil)
 
 ;;;***
 
-;;;### (autoloads nil nil ("undo-tree-pkg.el") (21430 52668 728886))
+;;;### (autoloads nil nil ("undo-tree-pkg.el") (21431 14574 787164))
 
 ;;;***
 

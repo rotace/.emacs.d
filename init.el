@@ -38,6 +38,9 @@
 
 ;; 引数のディレクトリとそのサブディレクトリをload-pathに追加
 (add-to-load-path "elisp" "conf")
+;; emacs23用elispディレクトリをload-pathに追加(package.el(ELPA用))
+(when (= emacs-major-version 23)
+  (add-to-load-path "elisp23"))
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ;; ======「Emacs実践入門」4.2章 環境に応じた設定の分岐 =========
@@ -236,6 +239,8 @@
 ;;; P96-97 表示テーマの設定
 ;; ▽要拡張機能インストール(wget)
 ;; http://download.savannah.gnu.org/releases/color-theme/color-theme-6.6.0.tar.gz
+;; ▽要拡張機能インストール(ELPA)v6.6.1
+;; (package-install 'color-theme)
 (when (require 'color-theme nil t)
   ;; テーマを読み込むための設定
   (color-theme-initialize)
