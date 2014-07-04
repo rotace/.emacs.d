@@ -114,7 +114,13 @@
   (package-initialize))			;これがなくてもinit.elで既にロードされる
 ;; ※emacs23でELPAは使用できないが、ELPAでインストールしたelispは
 ;; ※ちゃんとinit.elの設定でロードされているので問題ない.
+
+;; 使い方
+;; M-x list-packages ... パッケージリスト一覧モード
+;; (package-install '**) ... パッケージインストールlisp
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 
 ;; バージョン依存対策コマンド
 ;; 参考: http://www.sodan.org/~knagano/emacs/dotemacs.html
@@ -544,9 +550,12 @@
 ;; (define-auto-insert "\\.h$" "c-template.h")
 (define-auto-insert "\\.f90$" "fortran-template.f90")
 
+
 ;; ^^^ yasnippet.el ^^^^
 ;; ^^^^^^^^^^^^^^^^^^^^^
 ;; 略語展開（スニペット展開）
+;; ▽要拡張機能インストール(ELPA)
+;; (package-install 'yasnippet)
 (when(require 'yasnippet nil t)
   (setq yas-snippet-dirs
 	'("~/.emacs.d/snippets"		;作成するスニペットを格納
