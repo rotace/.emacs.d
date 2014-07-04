@@ -109,6 +109,8 @@
 ;; ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ;;; P115-116 Emacs Lisp Package Archive（ELPA）──Emacs Lispパッケージマネージャ
 ;; ▽要拡張機能インストール（ただし、Emacs24からはインストール不要）
+;; (install-elisp "http://bit.ly/pkg-el23")
+;; ※インストール後、23と24で切り替えるように設定すること(elisp23ディレクトリを利用)
 ;; package.elの設定
 (when (require 'package nil t)
   ;; パッケージリポジトリにMarmaladeと開発者運営のELPAを追加
@@ -120,6 +122,8 @@
 ;; 使い方
 ;; M-x list-packages ... パッケージリスト一覧モード
 ;; (package-install '**) ... パッケージインストールlisp
+;; ※パッケージインストールはemacs23用のELPAで行うことが望ましい
+;; ※emacs24標準のELPAからインストールされるelispは23との互換性に乏しい(経験則)
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -239,7 +243,7 @@
 ;;; P96-97 表示テーマの設定
 ;; ▽要拡張機能インストール(wget)
 ;; http://download.savannah.gnu.org/releases/color-theme/color-theme-6.6.0.tar.gz
-;; ▽要拡張機能インストール(ELPA)v6.6.1
+;; ▽要拡張機能インストール(ELPA23)v6.6.1
 ;; (package-install 'color-theme)
 (when (require 'color-theme nil t)
   ;; テーマを読み込むための設定
@@ -406,7 +410,7 @@
 ;; ^^^ auto-complete.el ^^^^
 ;; ^^^^^^^^^^^^^^^^^^^^^^^^^
 ;;; P130-131 補完入力機能
-;; ▽要拡張機能インストール(ELPA)
+;; ▽要拡張機能インストール(ELPA23)
 ;; (package-install 'auto-complete)
 ;; auto-complete設定
 (when (require 'auto-complete-config nil t) 
@@ -470,7 +474,7 @@
 ;; ^^^^ wgrep.el ^^^^^^
 ;; ^^^^^^^^^^^^^^^^^^^^
 ;;; P136 grepの結果を直接編集──wgrep
-;; ▽要拡張機能インストール
+;; ▽要拡張機能インストール(ELPA23)
 ;; (package-install 'wgrep)
 ;; wgrepの設定
 (require 'wgrep nil t)
@@ -501,7 +505,7 @@
 ;; ^^^ undo-tree.el ^^^^
 ;; ^^^^^^^^^^^^^^^^^^^^^
 ;;; P138 アンドゥの分岐履歴──undo-tree
-;; ▽要拡張機能インストール(ELPA)
+;; ▽要拡張機能インストール(ELPA23)
 ;; (package-install 'undo-tree)
 ;; undo-treeの設定
 (when (require 'undo-tree nil t)
@@ -559,7 +563,7 @@
 ;; ^^^ yasnippet.el ^^^^
 ;; ^^^^^^^^^^^^^^^^^^^^^
 ;; 略語展開（スニペット展開）
-;; ▽要拡張機能インストール(ELPA)
+;; ▽要拡張機能インストール(ELPA23)
 ;; (package-install 'yasnippet)
 (when(require 'yasnippet nil t)
   (setq yas-snippet-dirs
@@ -672,7 +676,7 @@
 ;; ^^^ multi-term ^^^^
 ;; ^^^^^^^^^^^^^^^^^^^
 ;;; ターミナルの利用 multi-term
-;; ▽要拡張機能インストール(ELPA)
+;; ▽要拡張機能インストール(ELPA23)
 ;; (package-install 'multi-term)
 ;; multi-termの設定
 (when (require 'multi-term nil t)
@@ -792,7 +796,7 @@
 
 ;; ^^^ gtags ^^^^^
 ;; ^^^^^^^^^^^^^^^
-;; ▽要拡張機能インストール(wget)
+;; ▽要拡張機能インストール(wgt)
 ;; http://tamacom.com/global/global-6.1.tar.gz
 ;; gtags キーバインド有効化
 (setq gtags-suggested-key-mapping t)
