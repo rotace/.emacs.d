@@ -105,7 +105,7 @@
 ;;; P115-116 Emacs Lisp Package Archive（ELPA）──Emacs Lispパッケージマネージャ
 ;; ▽要拡張機能インストール（ただし、Emacs24からはインストール不要）
 ;; package.elの設定
-(when (require 'package nil t)		
+(when (require 'package nil t)
   ;; パッケージリポジトリにMarmaladeと開発者運営のELPAを追加
   (add-to-list 'package-archives
                '("marmalade" . "http://marmalade-repo.org/packages/"))
@@ -378,24 +378,6 @@
 ;;; P127-128 過去の履歴からペースト──anything-show-kill-ring
 ;; M-yにanything-show-kill-ringを割り当てる
 (define-key global-map (kbd "M-y") 'anything-show-kill-ring)
-
-;; ^^^ anything-c-moccur.el ^^^^
-;; ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-;;; P128-129 moccurを利用する──anything-c-moccur
-;; ▽要拡張機能インストール(auto-install)
-;; (install-elisp http://svn.coderepos.org/share/lang/elisp/anything-c-moccur/trunk/anything-c-moccur.el)
-(when (require 'anything-c-moccur nil t)
-  (setq
-   ;; anything-c-moccur用 `anything-idle-delay'
-   anything-c-moccur-anything-idle-delay 0.1
-   ;; バッファの情報をハイライトする
-   anything-c-moccur-higligt-info-line-flag t
-   ;; 現在選択中の候補の位置をほかのwindowに表示する
-   anything-c-moccur-enable-auto-look-flag t
-   ;; 起動時にポイントの位置の単語を初期パターンにする
-   anything-c-moccur-enable-initial-pattern t)
-  ;; C-M-oにanything-c-moccur-occur-by-moccurを割り当てる
-  (global-set-key (kbd "C-M-o") 'anything-c-moccur-occur-by-moccur))
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -444,6 +426,23 @@
              (require 'migemo nil t))
     (setq moccur-use-migemo t)))
 
+;; ^^^ anything-c-moccur.el ^^^^
+;; ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+;;; P128-129 moccurを利用する──anything-c-moccur
+;; ▽要拡張機能インストール(auto-install)※先にcolor-moccur.elをインストールする
+;; (install-elisp "http://svn.coderepos.org/share/lang/elisp/anything-c-moccur/trunk/anything-c-moccur.el")
+(when (require 'anything-c-moccur nil t)
+  (setq
+   ;; anything-c-moccur用 `anything-idle-delay'
+   anything-c-moccur-anything-idle-delay 0.1
+   ;; バッファの情報をハイライトする
+   anything-c-moccur-higligt-info-line-flag t
+   ;; 現在選択中の候補の位置をほかのwindowに表示する
+   anything-c-moccur-enable-auto-look-flag t
+   ;; 起動時にポイントの位置の単語を初期パターンにする
+   anything-c-moccur-enable-initial-pattern t)
+  ;; C-M-oにanything-c-moccur-occur-by-moccurを割り当てる
+  (global-set-key (kbd "C-M-o") 'anything-c-moccur-occur-by-moccur))
 
 ;; ^^^ moccur-edit.el ^^^^
 ;; ^^^^^^^^^^^^^^^^^^^^^^^
