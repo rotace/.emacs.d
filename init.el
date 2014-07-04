@@ -78,6 +78,73 @@
 
 
 
+;; ######################################################
+;;     Elisp 管理設定
+;; ######################################################
+;; ======「Emacs実践入門」6.1章 Elispをインストールしよう=======
+
+;; ^^^ auto-install ^^^
+;; ^^^^^^^^^^^^^^^^^^^^
+;;; P113 拡張機能を自動インストール──auto-install
+;; ▽要拡張機能インストール(wget)
+;; http://www.emacswiki.org/emacs/download/auto-install.el
+;; auto-installの設定
+(when (require 'auto-install nil t)
+  ;; インストールディレクトリを設定する 初期値は ~/.emacs.d/auto-install/
+  ;; (setq auto-install-directory "~/.emacs.d/elisp/")
+  ;; EmacsWikiに登録されているelisp の名前を取得する
+  (auto-install-update-emacswiki-package-name t)
+  ;; 必要であればプロキシの設定を行う
+  ;; (setq url-proxy-services '(("http" . "localhost:8339")))
+  ;; install-elisp の関数を利用可能にする
+  (auto-install-compatibility-setup))
+
+
+;; ^^^^^ Emacs Lisp Package Archive（ELPA）^^^^
+;; ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+;;; P115-116 Emacs Lisp Package Archive（ELPA）──Emacs Lispパッケージマネージャ
+;; ▽要拡張機能インストール（ただし、Emacs24からはインストール不要）
+;; package.elの設定
+(when (require 'package nil t)		
+  ;; パッケージリポジトリにMarmaladeと開発者運営のELPAを追加
+  (add-to-list 'package-archives
+               '("marmalade" . "http://marmalade-repo.org/packages/"))
+  (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
+  ;; インストールしたパッケージにロードパスを通して読み込む
+  (package-initialize))			;これがなくてもinit.elで既にロードされる
+;; ※emacs23でELPAは使用できないが、ELPAでインストールしたelispは
+;; ※ちゃんとinit.elの設定でロードされているので問題ない.
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+;; バージョン依存対策コマンド
+;; 参考: http://www.sodan.org/~knagano/emacs/dotemacs.html
+;; 1.関数が存在するときだけ実行する．(car の fboundp を調べるだけ)
+
+(defmacro exec-if-bound (sexplist)
+  `(if (fboundp (car ',sexplist))
+       ,sexplist))
+;; 2.add-hook のエイリアス．引数を関数にパックしてhookに追加する
+;; 使い方 add-hook で失敗する　->　defun-add-hook
+(defmacro defun-add-hook (hookname &rest sexplist)
+  `(add-hook ,hookname
+	     (function (lambda () ,@sexplist))))
+;; 3.安全なautoload
+;; 使い方　autoload で失敗する　-> autoload-if-found
+;;   "set autoload iff. FILE has found."
+(defun autoload-if-found (function file &optional docstring interactive type)
+  (and (locate-library file)
+       (autoload function file docstring interactive type)))
+
+
+;; ^^^ minor-mode-hack.el ^^^
+;; ^^^^^^^^^^^^^^^^^^^^^^^^^^
+;; マイナーモードキー衝突問題を解決する
+;; ▽要拡張機能インストール
+;; (install-elisp-from-emacswiki "minor-mode-hack.el")
+(require 'minor-mode-hack)
+
+
+
 
 
 
@@ -112,8 +179,8 @@
   (redisplay))
 (global-set-key [f11] 'my-fullscreen)	;[F11]: ショートカットキー
 
-;; バッファ名表示設定
-;; make the names of buffers clearly
+
+;; バッファ名表示設定 (make the names of buffers clearly)
 (require 'uniquify)
 ;; filename<dir>
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
@@ -158,8 +225,11 @@
 ;; リージョンの背景色を変更
 ;; (set-face-background 'region "darkgreen")
 
-;; ▼要拡張機能インストール▼
+
+;; ^^^^^ color-theme ^^^^^^
+;; ^^^^^^^^^^^^^^^^^^^^^^^^
 ;;; P96-97 表示テーマの設定
+;; ▽要拡張機能インストール(wget)
 ;; http://download.savannah.gnu.org/releases/color-theme/color-theme-6.6.0.tar.gz
 (when (require 'color-theme nil t)
   ;; テーマを読み込むための設定
@@ -255,84 +325,16 @@
 
 
 
-
-
-(message "...setting load-path")
-;; ######################################################
-;;     Elisp 管理設定
-;; ######################################################
-;; ======「Emacs実践入門」6.1章 Elispをインストールしよう=======
-;; ▼要拡張機能インストール▼
-;;; P113 拡張機能を自動インストール──auto-install
-;; auto-installの設定
-(when (require 'auto-install nil t)	; ←1
-  ;; 2インストールディレクトリを設定する 初期値は ~/.emacs.d/auto-install/
-  ;; (setq auto-install-directory "~/.emacs.d/elisp/")
-  ;; EmacsWikiに登録されているelisp の名前を取得する
-  (auto-install-update-emacswiki-package-name t)
-  ;; 必要であればプロキシの設定を行う
-  ;; (setq url-proxy-services '(("http" . "localhost:8339")))
-  ;; 3install-elisp の関数を利用可能にする
-  (auto-install-compatibility-setup)) ; 4
-
-
-;; ▼要拡張機能インストール▼（ただし、Emacs24からはインストール不要）
-;;; P115-116 Emacs Lisp Package Archive（ELPA）──Emacs Lispパッケージマネージャ
-;; package.elの設定
-(when (require 'package nil t)
-  ;; パッケージリポジトリにMarmaladeと開発者運営のELPAを追加
-  (add-to-list 'package-archives
-               '("marmalade" . "http://marmalade-repo.org/packages/"))
-  (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
-  ;; インストールしたパッケージにロードパスを通して読み込む
-  (package-initialize))
-;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-;; バージョン依存対策コマンド
-;; 参考: http://www.sodan.org/~knagano/emacs/dotemacs.html
-;; 1.関数が存在するときだけ実行する．(car の fboundp を調べるだけ)
-;; -----------------------------------------------------
-;; 使い方　
-(defmacro exec-if-bound (sexplist)
-  `(if (fboundp (car ',sexplist))
-       ,sexplist))
-;; 2.add-hook のエイリアス．引数を関数にパックしてhookに追加する
-;; -----------------------------------------------------
-;; 使い方 add-hook で失敗する　->　defun-add-hook
-(defmacro defun-add-hook (hookname &rest sexplist)
-  `(add-hook ,hookname
-	     (function (lambda () ,@sexplist))))
-;; 3.安全なautoload
-;; -----------------------------------------------------
-;; 使い方　autoload で失敗する　-> autoload-if-found
-;;   "set autoload iff. FILE has found."
-(defun autoload-if-found (function file &optional docstring interactive type)
-  (and (locate-library file)
-       (autoload function file docstring interactive type)))
-
-
-
-
-;; (install-elisp-from-emacswiki "minor-mode-hack.el")
-(require 'minor-mode-hack)
-
-
-
-
-
-
-
-
-
-
-
 (message "...setting Anything")
 ;; ######################################################
 ;;     Anything 設定
 ;; ######################################################
 ;; ======「Emacs実践入門」6.2章 統一したインタフェースでの操作====
-;; ▼要拡張機能インストール▼
+
+;; ^^^^ Anything ^^^^
+;; ^^^^^^^^^^^^^^^^^^
 ;;; P122-129 候補選択型インタフェース──Anything
+;; ▽要拡張機能インストール(auto-install)
 ;; (auto-install-batch "anything")
 (when (require 'anything nil t)
   (setq
@@ -371,13 +373,17 @@
     ;; describe-bindingsをAnythingに置き換える
     (descbinds-anything-install)))
 
-;; ▼要拡張機能インストール▼
+;; ^^^ anything-config.el ^^^^
+;; ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ;;; P127-128 過去の履歴からペースト──anything-show-kill-ring
 ;; M-yにanything-show-kill-ringを割り当てる
 (define-key global-map (kbd "M-y") 'anything-show-kill-ring)
 
-;; ▼要拡張機能インストール▼
+;; ^^^ anything-c-moccur.el ^^^^
+;; ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ;;; P128-129 moccurを利用する──anything-c-moccur
+;; ▽要拡張機能インストール(auto-install)
+;; (install-elisp http://svn.coderepos.org/share/lang/elisp/anything-c-moccur/trunk/anything-c-moccur.el)
 (when (require 'anything-c-moccur nil t)
   (setq
    ;; anything-c-moccur用 `anything-idle-delay'
@@ -404,8 +410,12 @@
 ;;     入力支援ツール
 ;; ######################################################
 ;; ======「Emacs実践入門」6.3章 入力の効率化==================
-;; ▼要拡張機能インストール▼
-;;; P130-131 利用可能にする
+
+;; ^^^ auto-complete.el ^^^^
+;; ^^^^^^^^^^^^^^^^^^^^^^^^^
+;;; P130-131 補完入力機能
+;; ▽要拡張機能インストール(ELPA)
+;; (package-install 'auto-complete)
 (when (require 'auto-complete-config nil t)
   (add-to-list 'ac-dictionary-directories 
     "~/.emacs.d/elisp/ac-dict")
@@ -414,8 +424,12 @@
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ;; ======「Emacs実践入門」6.4章 検索と置換の拡張===============
-;; ▼要拡張機能インストール▼
+
+;; ^^^ color-moccur.el ^^^^
+;; ^^^^^^^^^^^^^^^^^^^^^^^^
 ;;; P132 検索結果をリストアップする──color-moccur
+;; ▽要拡張機能インストール
+;; (auto-install-from-emacswiki "color-moccur.el")
 ;; color-moccurの設定
 (when (require 'color-moccur nil t)
   ;; M-oにoccur-by-moccurを割り当て
@@ -430,8 +444,12 @@
              (require 'migemo nil t))
     (setq moccur-use-migemo t)))
 
-;; ▼要拡張機能インストール▼
+
+;; ^^^ moccur-edit.el ^^^^
+;; ^^^^^^^^^^^^^^^^^^^^^^^
 ;;; P133-134 moccurの結果を直接編集──moccur-edit
+;; ▽要拡張機能インストール(auto-install)
+;; (auto-install-from-emacswiki "moccur-edit.el")
 ;; moccur-editの設定
 (require 'moccur-edit nil t)
 ;; moccur-edit-finish-editと同時にファイルを保存する
@@ -439,15 +457,21 @@
   (after save-after-moccur-edit-buffer activate)
   (save-buffer))
 
-;; ▼要拡張機能インストール▼
+;; ^^^^ wgrep.el ^^^^^^
+;; ^^^^^^^^^^^^^^^^^^^^
 ;;; P136 grepの結果を直接編集──wgrep
+;; ▽要拡張機能インストール
+;; (package-install 'wgrep)
 ;; wgrepの設定
 (require 'wgrep nil t)
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ;; ======「Emacs実践入門」6.5章 さまざまな履歴管理==============
-;; ▼要拡張機能インストール▼
-;; (install-elisp "http://www.emacswiki.org/emacs/download/redo+.el")
+
+;; ^^^^ redo+.el ^^^^
+;; ^^^^^^^^^^^^^^^^^^
+;; ▽要拡張機能インストール(auto-install)
+;; (install-elisp-from-emacswiki "redo+.el")
 (when (require 'redo+ nil t)
   ;; C-' にリドゥを割り当てる
   ;; (global-set-key (kbd "C-'") 'redo)
@@ -455,20 +479,29 @@
   (global-set-key (kbd "C-.") 'redo)
   ) ; ←ここでC-x C-eで設定反映
 
-;; ▼要拡張機能インストール▼
+;; ^^^ undohist.el ^^^^
+;; ^^^^^^^^^^^^^^^^^^^^
 ;;; P137-138 編集履歴を記憶する──undohist
+;; ▽要拡張機能インストール(auto-install)
+;; (install-elisp "http://cx4a.org/pub/undohist.el")
 ;; undohistの設定
 (when (require 'undohist nil t)
   (undohist-initialize))
 
-;; ▼要拡張機能インストール▼
+;; ^^^ undo-tree.el ^^^^
+;; ^^^^^^^^^^^^^^^^^^^^^
 ;;; P138 アンドゥの分岐履歴──undo-tree
+;; ▽要拡張機能インストール(ELPA)
+;; (package-install 'undo-tree)
 ;; undo-treeの設定
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode))
 
-;; ▼要拡張機能インストール▼
+;; ^^^ point-undo ^^^^
+;; ^^^^^^^^^^^^^^^^^^^
 ;;; P139-140 カーソルの移動履歴──point-undo
+;; ▽要拡張機能インストール(auto-install)
+;; (auto-install-from-emacswiki "point-undo.el")
 ;; point-undoの設定
 (when (require 'point-undo nil t)
   ;; (define-key global-map [f5] 'point-undo)
@@ -480,6 +513,9 @@
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ;; ======「Emacs実践入門」6.8章 特殊な範囲の編集===============
+
+;; ^^^ cua-mode ^^^
+;; ^^^^^^^^^^^^^^^^
 ;;; P151 矩形編集──cua-mode
 ;; cua-modeの設定
 (cua-mode t) ; cua-modeをオン
@@ -489,37 +525,42 @@
 ;;; カーソル位置のファイルパスやアドレスを "C-x C-f" で開く
 (ffap-bindings)
 
+;; ^^^ sequential-command.el ^^^^
+;; ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ;; C-a C-a で先頭，C-e C-e で末尾に飛ぶ
-;; let "C-a C-a" go to end of current buffer
+;; ▽要拡張機能インストール(auto-install)
 ;; (auto-install-batch "sequential-command")
-(require 'sequential-command-config)
-(sequential-command-setup-keys)
+(when (require 'sequential-command-config nil t)
+  (sequential-command-setup-keys))
 
+;; ^^^ autoinsert.el ^^^^
+;; ^^^^^^^^^^^^^^^^^^^^^^^
 ;; テンプレート自動入力
 (auto-insert-mode)
 (setq auto-insert-directory "~/.emacs.d/insert/")
 (define-auto-insert "\\.sh$" "shellscript-template.sh")
-(define-auto-insert "\\.C$" "c++-template.C")
-(define-auto-insert "\\.H$" "c++-template.H")
-(define-auto-insert "\\.c$" "c-template.c")
-(define-auto-insert "\\.h$" "c-template.h")
+;; (define-auto-insert "\\.C$" "c++-template.C")
+;; (define-auto-insert "\\.H$" "c++-template.H")
+;; (define-auto-insert "\\.c$" "c-template.c")
+;; (define-auto-insert "\\.h$" "c-template.h")
 (define-auto-insert "\\.f90$" "fortran-template.f90")
 
-;; $$$$$$$　スニペット　$$$$$$$
+;; ^^^ yasnippet.el ^^^^
+;; ^^^^^^^^^^^^^^^^^^^^^
 ;; 略語展開（スニペット展開）
-(require 'yasnippet)
-(setq yas-snippet-dirs
-      '("~/.emacs.d/snippets"		;作成するスニペットを格納
-	"~/.emacs.d/elisp/yasnippet/snippets"))
-(yas-global-mode 1)
-;; 単語展開キーバインド
-(custom-set-variables '(yas-trigger-key "TAB"))
-;; 既存スニペットを挿入する
-(define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet)
-;; 新規スニペットを作成するバッファを用意する
-(define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
-;; 既存スニペットを閲覧・編集する
-(define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
+(when(require 'yasnippet nil t)
+  (setq yas-snippet-dirs
+	'("~/.emacs.d/snippets"		;作成するスニペットを格納
+	  "~/.emacs.d/elisp/yasnippet/snippets"))
+  (yas-global-mode 1)
+  ;; 単語展開キーバインド
+  (custom-set-variables '(yas-trigger-key "TAB"))
+  ;; 既存スニペットを挿入する
+  (define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet)
+  ;; 新規スニペットを作成するバッファを用意する
+  (define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
+  ;; 既存スニペットを閲覧・編集する
+  (define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file))
 
 
 
@@ -532,20 +573,14 @@
 ;;     開発支援ツール
 ;; ######################################################
 ;; ======「Emacs実践入門」7.3章 タグによるコードリーディング======
-;; ▼要拡張機能インストール▼
-;;; P190-191 ctagsとEmacsとの連携
-;; ctags.elの設定
-;; (require 'ctags nil t)
-;; (setq tags-revert-without-query t)
-;; ctagsを呼び出すコマンドライン。パスが通っていればフルパスでなくてもよい
-;; etags互換タグを利用する場合はコメントを外す
-;; (setq ctags-command "ctags -e -R ")
-;; anything-exuberant-ctags.elを利用しない場合はコメントアウトする
-;; (setq ctags-command "ctags -R --fields=\"+afikKlmnsSzt\" ")
-;; (global-set-key (kbd "<f5>") 'ctags-create-or-update-tags-table)
 
-;; ▼要拡張機能インストール▼
+;; ^^^     anything-gtags.el       ^^^^
+;; ^^^ anything-exuberant-ctags.el ^^^^
+;; ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ;;; P192-193 Anythingとタグの連携
+;; ▽要拡張機能インストール
+;; (auto-install-from-emacswiki "anything-gtags.el")
+;; (auto-install-from-emacswiki "anything-exuberant-ctags.el")
 ;; AnythingからTAGSを利用しやすくするコマンド作成
 (when (and (require 'anything-gtags nil t)
 	   ;; (require 'anything-exuberant-ctags nil t)
@@ -569,7 +604,10 @@
   (define-key global-map (kbd "M-t") 'anything-for-tags))
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+;; ^^^ fold-dwim.el ^^^^
+;; ^^^^^^^^^^^^^^^^^^^^^
 ;; 文章を折りたたむ fold-dwim
+;; ▽要拡張機能インストール(auto-install)
 ;; (install-elisp "http://www.dur.ac.uk/p.j.heslin/Software/Emacs/Download/fold-dwim.el")
 (require 'hideshow)
 (require 'fold-dwim)
@@ -617,8 +655,12 @@
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ;; ======「Emacs実践入門」7.9章 シェルの利用==================
-;; ▼要拡張機能インストール▼
+
+;; ^^^ multi-term ^^^^
+;; ^^^^^^^^^^^^^^^^^^^
 ;;; ターミナルの利用 multi-term
+;; ▽要拡張機能インストール(ELPA)
+;; (package-install 'multi-term)
 ;; multi-termの設定
 (when (require 'multi-term nil t)
   ;; 使用するシェルを指定
@@ -640,7 +682,8 @@
 (setq woman-manpath '("/usr/share/man"
                       "/usr/local/share/man"
                       "/usr/local/share/man/ja"))
-;; ▼要拡張機能インストール▼
+
+
 ;; anything-for-document用のソースを定義
 (setq anything-for-document-sources
       (list anything-c-source-man-pages
@@ -662,13 +705,6 @@
 ;; Ctrl-c+dにanything-for-documentを割り当て
 (define-key global-map (kbd "C-c d") 'anything-for-document)
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
-
-
-
 
 
 
@@ -732,26 +768,32 @@
 
      
 ;; ######################################################
-;;     環境依存のあるElisp (外部ツール依存)
+;;     環境依存のあるElisp (外部ツール依存) 
 ;; ######################################################
+;; ホスト環境に依存するので、システム側にインストールすること！
+;; インストール先：/usr/share/emacs/2*.*/site-lispなど
 
-;; $$$$$$$$ Gtags $$$$$$$$$
-;; ▼要拡張機能インストール▼
+
+;; ^^^ gtags ^^^^^
+;; ^^^^^^^^^^^^^^^
+;; ▽要拡張機能インストール(wget)
+;; http://tamacom.com/global/global-6.1.tar.gz
 ;; gtags キーバインド有効化
 (setq gtags-suggested-key-mapping t)
 ;; gtagsインストール(gtags-mode...マイナーモード)
-(require 'gtags)
-;; c,c++を読み込んだ時に起動（フック）
-(add-hook 'c-mode-common-hook 'gtags-mode)
-(add-hook 'c++-mode-common-hook 'gtags-mode)
-;; 読み込み専用モード
-(setq view-read-only t)
-(setq gtags-read-only t)
-;; M-*で戻るとき、戻る前のバッファを削除
-(setq gtags-pop-delete t)
+(when (require 'gtags nil t)
+  ;; c,c++を読み込んだ時に起動（フック）
+  (add-hook 'c-mode-common-hook 'gtags-mode)
+  (add-hook 'c++-mode-common-hook 'gtags-mode)
+  ;; 読み込み専用モード
+  (setq view-read-only t)
+  (setq gtags-read-only t)
+  ;; M-*で戻るとき、戻る前のバッファを削除
+  (setq gtags-pop-delete t))
 
 
-;; $$$$$$$$ Octave $$$$$$$$
+;; ^^^ ovtave ^^^^^
+;; ^^^^^^^^^^^^^^^^
 ;; octave-mode
 (autoload 'octave-mode "octave-mod" nil t)
 (setq auto-mode-alist
@@ -764,45 +806,49 @@
 		(font-lock-mode 1))))
 
 
-;; $$$$$$$$ Yatex $$$$$$$$$$
-(setq auto-mode-alist
-      (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
-(autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
+;; ^^^ Yatex ^^^^^
+;; ^^^^^^^^^^^^^^^
+;; ▽要拡張機能インストール(wget)
+;; http://www.yatex.org/yatex1.77.tar.gz
+(when (require 'yatex nil t)
+  (setq auto-mode-alist
+	(cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
+  (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
 
-;; 文章作成時の漢字コードの設定
-;; 1 = Shift_JIS, 2 = ISO-2022-JP, 3 = EUC-JP, 4 = UTF-8
-;; コードを指定してしまうと，別のコードのファイルも勝手に
-;; ここで指定したコードに変換されてしまいトラブルのもとに
-;; なるので，nilにしておくのが吉。
-(setq YaTeX-kanji-code nil)
+  ;; 文章作成時の漢字コードの設定
+  ;; 1 = Shift_JIS, 2 = ISO-2022-JP, 3 = EUC-JP, 4 = UTF-8
+  ;; コードを指定してしまうと，別のコードのファイルも勝手に
+  ;; ここで指定したコードに変換されてしまいトラブルのもとに
+  ;; なるので，nilにしておくのが吉。
+  (setq YaTeX-kanji-code nil)
 
+					;LaTeXコマンドの設定
+  (setq tex-command "platex")
+					;YaTeXでのプレビューアコマンドを設定する
+  (setq dvi2-command "pxdvi")
+					;AMS-LaTeX を使用するかどうか
+  (setq YaTeX-use-AMS-LaTeX t)
+					;C-c t lにdvipdfmxを設定
+  (setq dviprint-command-format "dvipdfmx %s")
+					;bibtex に pbibtex
+  (setq bibtex-command "pbibtex")
 
-;LaTeXコマンドの設定
-(setq tex-command "platex")
-;YaTeXでのプレビューアコマンドを設定する
-(setq dvi2-command "pxdvi")
-;AMS-LaTeX を使用するかどうか
-(setq YaTeX-use-AMS-LaTeX t)
-;C-c t lにdvipdfmxを設定
-(setq dviprint-command-format "dvipdfmx %s")
-;bibtex に pbibtex
-(setq bibtex-command "pbibtex")
+					; RefTeXをYaTeXで使えるようにする
+  ;; (add-hook 'yatex-mode-hook '(lambda () (reftex-mode t)))
+					; RefTeXで使うbibファイルの位置を指定する
+					;(setq reftex-default-bibliography '("~/Library/TeX/bib/papers.bib"))
 
-; RefTeXをYaTeXで使えるようにする
-;; (add-hook 'yatex-mode-hook '(lambda () (reftex-mode t)))
-; RefTeXで使うbibファイルの位置を指定する
-;(setq reftex-default-bibliography '("~/Library/TeX/bib/papers.bib"))
+  ;;RefTeXに関する設定
+  ;; (setq reftex-enable-partial-scans t)
+  ;; (setq reftex-save-parse-info t)
+  ;; (setq reftex-use-multiple-selection-buffers t)
 
-;;RefTeXに関する設定
-;; (setq reftex-enable-partial-scans t)
-;; (setq reftex-save-parse-info t)
-;; (setq reftex-use-multiple-selection-buffers t)
+  ;;RefTeXにおいて数式の引用を\eqrefにする
+  ;; (setq reftex-label-alist '((nil ?e nil "=\\eqref{%s}" nil nil)))
 
-;;RefTeXにおいて数式の引用を\eqrefにする
-;; (setq reftex-label-alist '((nil ?e nil "=\\eqref{%s}" nil nil)))
+					; [prefix] 英字 コマンドを[prefix] C-英字 に変更する
+  ;; (setq YaTeX-inihibit-prefix-letter t)
 
-; [prefix] 英字 コマンドを[prefix] C-英字 に変更する
-;; (setq YaTeX-inihibit-prefix-letter t)
-
-; 自動改行を抑制する
-;; (add-hook 'yatex-mode-hook'(lambda ()(setq auto-fill-function nill)))
+					; 自動改行を抑制する
+  ;; (add-hook 'yatex-mode-hook'(lambda ()(setq auto-fill-function nill)))
+  )
