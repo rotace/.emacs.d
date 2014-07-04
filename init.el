@@ -2,8 +2,10 @@
 ;;       Emacs 設定ファイル
 ;;                           created by shibata
 ;; ***************************************************** ;;
-
 (message "...starting Emacs")
+
+
+
 ;; ######################################################
 ;;     起動・設定ファイル・ロードパス
 ;; ######################################################
@@ -111,10 +113,7 @@
                '("marmalade" . "http://marmalade-repo.org/packages/"))
   (add-to-list 'package-archives '("ELPA" . "http://tromey.com/elpa/"))
   ;; インストールしたパッケージにロードパスを通して読み込む
-  (package-initialize))			;これがなくてもinit.elで既にロードされる
-;; ※emacs23でELPAは使用できないが、ELPAでインストールしたelispは
-;; ※ちゃんとinit.elの設定でロードされているので問題ない.
-
+  (package-initialize))
 ;; 使い方
 ;; M-x list-packages ... パッケージリスト一覧モード
 ;; (package-install '**) ... パッケージインストールlisp
@@ -404,7 +403,8 @@
 ;;; P130-131 補完入力機能
 ;; ▽要拡張機能インストール(ELPA)
 ;; (package-install 'auto-complete)
-(when (require 'auto-complete-config nil t)
+;; auto-complete設定
+(when (require 'auto-complete-config nil t) 
   (add-to-list 'ac-dictionary-directories 
     "~/.emacs.d/elisp/ac-dict")
   (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
@@ -773,6 +773,7 @@
 ;; 	      "-custom.el"))
 ;; (if (file-exists-p (expand-file-name custom-file))
 ;;     (load-file (expand-file-name custom-file)))
+
 
 
 
