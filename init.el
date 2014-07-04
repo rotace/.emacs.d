@@ -35,7 +35,7 @@
             (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; 引数のディレクトリとそのサブディレクトリをload-pathに追加
-(add-to-load-path "elisp" "conf" "public_repos" "auto-install")
+(add-to-load-path "elisp" "conf" "auto-install")
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ;; ======「Emacs実践入門」4.2章 環境に応じた設定の分岐 =========
@@ -141,7 +141,7 @@
 ;; マイナーモードキー衝突問題を解決する
 ;; ▽要拡張機能インストール
 ;; (install-elisp-from-emacswiki "minor-mode-hack.el")
-(require 'minor-mode-hack)
+(require 'minor-mode-hack nil t)
 
 
 
@@ -609,8 +609,8 @@
 ;; 文章を折りたたむ fold-dwim
 ;; ▽要拡張機能インストール(auto-install)
 ;; (install-elisp "http://www.dur.ac.uk/p.j.heslin/Software/Emacs/Download/fold-dwim.el")
-(require 'hideshow)
-(require 'fold-dwim)
+(require 'hideshow nil t)
+(require 'fold-dwim nil t)
 (global-set-key (kbd "C-c h") 'hs-minor-mode)
 (global-set-key (kbd "C-c f") 'fold-dwim-toggle)
 (global-set-key (kbd "C-c g") 'fold-dwim-hide-all)
@@ -685,25 +685,27 @@
 
 
 ;; anything-for-document用のソースを定義
-(setq anything-for-document-sources
-      (list anything-c-source-man-pages
-            anything-c-source-info-cl
-            anything-c-source-info-pages
-            anything-c-source-info-elisp
-            anything-c-source-apropos-emacs-commands
-            anything-c-source-apropos-emacs-functions
-            anything-c-source-apropos-emacs-variables))
+(when (require' anything nil t)
+  (setq anything-for-document-sources
+	(list anything-c-source-man-pages
+	      anything-c-source-info-cl
+	      anything-c-source-info-pages
+	      anything-c-source-info-elisp
+	      anything-c-source-apropos-emacs-commands
+	      anything-c-source-apropos-emacs-functions
+	      anything-c-source-apropos-emacs-variables))
 
-;; anything-for-documentコマンドを作成
-(defun anything-for-document ()
-  "Preconfigured `anything' for anything-for-document."
-  (interactive)
-  (anything anything-for-document-sources
-            (thing-at-point 'symbol) nil nil nil
-            "*anything for document*"))
+  ;; anything-for-documentコマンドを作成
+  (defun anything-for-document ()
+    "Preconfigured `anything' for anything-for-document."
+    (interactive)
+    (anything anything-for-document-sources
+	      (thing-at-point 'symbol) nil nil nil
+	      "*anything for document*"))
 
-;; Ctrl-c+dにanything-for-documentを割り当て
-(define-key global-map (kbd "C-c d") 'anything-for-document)
+  ;; Ctrl-c+dにanything-for-documentを割り当て
+  (define-key global-map (kbd "C-c d") 'anything-for-document)
+  )
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 

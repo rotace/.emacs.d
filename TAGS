@@ -1,9 +1,0 @@
-
-init.el,238
-(defun add-to-load-path 45,1952
-(define-key global-map 90,3596
-(define-key global-map 92,3733
-(defun count-lines-and-chars 136,5339
-(defface my-hl-line-face179,6770
-(defun elisp-mode-hooks 240,9282
-(define-key global-map 337,13249
