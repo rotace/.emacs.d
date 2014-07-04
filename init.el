@@ -37,7 +37,7 @@
             (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; 引数のディレクトリとそのサブディレクトリをload-pathに追加
-(add-to-load-path "elisp" "conf" "auto-install")
+(add-to-load-path "elisp" "conf")
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ;; ======「Emacs実践入門」4.2章 環境に応じた設定の分岐 =========
@@ -93,7 +93,7 @@
 ;; auto-installの設定
 (when (require 'auto-install nil t)
   ;; インストールディレクトリを設定する 初期値は ~/.emacs.d/auto-install/
-  ;; (setq auto-install-directory "~/.emacs.d/elisp/")
+  (setq auto-install-directory "~/.emacs.d/elisp/")
   ;; EmacsWikiに登録されているelisp の名前を取得する
   (auto-install-update-emacswiki-package-name t)
   ;; 必要であればプロキシの設定を行う
