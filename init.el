@@ -568,7 +568,7 @@
 (when(require 'yasnippet nil t)
   (setq yas-snippet-dirs
 	'("~/.emacs.d/snippets"		;作成するスニペットを格納
-	  "~/.emacs.d/elisp/yasnippet/snippets"))
+	  "~/.emacs.d/elpa/yasnippet-0.8.0/snippets"))
   (yas-global-mode 1)
   ;; 単語展開キーバインド
   (custom-set-variables '(yas-trigger-key "TAB"))
