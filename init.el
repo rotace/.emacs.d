@@ -742,7 +742,9 @@
 ;;; P80 C-hをバックスペースにする
 ;; 入力されるキーシーケンスを置き換える
 ;; ?\C-?はDELのキーシケンス
-(keyboard-translate ?\C-h ?\C-?)
+(add-hook 'after-make-frame-functions
+	  (lambda (f) (with-selected-frame f
+			(keyboard-translate ?\C-h ?\C-?))))
 
 ;;; P79-81 お勧めのキー操作
 ;; C-mにnewline-and-indentを割り当てる。
@@ -872,3 +874,4 @@
 					; 自動改行を抑制する
   ;; (add-hook 'yatex-mode-hook'(lambda ()(setq auto-fill-function nill)))
   )
+
