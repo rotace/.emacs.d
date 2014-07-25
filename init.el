@@ -793,7 +793,11 @@
 ;;     環境依存のあるElisp (外部ツール依存) 
 ;; ######################################################
 ;; ホスト環境に依存するので、システム側にインストールすること！
-;; インストール先：/usr/share/emacs/2*.*/site-lispなど
+;; インストール先の例
+;; /usr/share/emacs/2*.*/site-lisp
+;; /usr/share/emacs/site-lisp
+;; /usr/local/share/emacs/2*.*/site-lisp
+;; /usr/local/share/emacs/site-lisp
 
 
 ;; ^^^ gtags ^^^^^
