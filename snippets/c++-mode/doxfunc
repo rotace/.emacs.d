@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: doxfunc
+# --
+/** $0
+ * @param
+ * @return
+ * @retval
+ */

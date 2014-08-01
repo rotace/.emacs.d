@@ -2,7 +2,10 @@
 ;;       Emacs 設定ファイル
 ;;                           created by shibata
 ;; ***************************************************** ;;
-(message "...starting Emacs")
+(message "<<log>>#########...starting Emacs")
+
+;; set variable
+(setq gtags-suggested-key-mapping t)
 
 
 
@@ -163,7 +166,7 @@
 
 
 
-(message "...screen config")
+(message "<<log>>#########...screen config")
 ;; ########s##############################################
 ;;     画面設定
 ;; ######################################################
@@ -281,7 +284,7 @@
 
 
 
-(message "...backup autosave hook")
+(message "<<log>>#########...backup autosave hook")
 ;; ######################################################
 ;;     バックアップ・オートセーブ・フック
 ;; ######################################################
@@ -339,7 +342,7 @@
 
 
 
-(message "...setting Anything")
+(message "<<log>>#########...setting Anything")
 ;; ######################################################
 ;;     Anything 設定
 ;; ######################################################
@@ -401,7 +404,7 @@
 
 
 
-(message "...setting tools")
+(message "<<log>>#########...setting tools")
 ;; ######################################################
 ;;     入力支援ツール
 ;; ######################################################
@@ -585,7 +588,7 @@
 
 
 
-(message "...programing tools")
+(message "<<log>>#########...programing tools")
 ;; ######################################################
 ;;     開発支援ツール
 ;; ######################################################
@@ -661,7 +664,7 @@
 
 
 
-(message "...other utilities")
+(message "<<log>>#########...other utilities")
 ;; ######################################################
 ;;     その他ユーティリティ
 ;; ######################################################
@@ -734,7 +737,7 @@
 
 
 
-(message "...keybinding")
+(message "<<log>>#########...keybinding")
 ;; ######################################################
 ;;     その他キーバインド設定
 ;; ######################################################
@@ -767,7 +770,7 @@
 
 
 
-(message "...environmental dependent tools")
+(message "<<log>>#########...environmental dependent tools")
 ;; ######################################################
 ;;     環境依存のあるElisp (バージョン依存)
 ;; ######################################################
@@ -809,22 +812,26 @@
 	 '(("\\.cmake\\'" . cmake-mode))
 	 auto-mode-alist)))
 
+
 ;; ^^^ gtags ^^^^^
 ;; ^^^^^^^^^^^^^^^
 ;; ▽要拡張機能インストール(wgt)
 ;; http://tamacom.com/global/global-6.1.tar.gz
-;; gtags キーバインド有効化
-(setq gtags-suggested-key-mapping t)
-;; gtagsインストール(gtags-mode...マイナーモード)
-(when (require 'gtags nil t)
-  ;; c,c++を読み込んだ時に起動（フック）
-  (add-hook 'c-mode-common-hook 'gtags-mode)
-  (add-hook 'c++-mode-common-hook 'gtags-mode)
-  ;; 読み込み専用モード
-  (setq view-read-only t)
-  (setq gtags-read-only t)
-  ;; M-*で戻るとき、戻る前のバッファを削除
-  (setq gtags-pop-delete t))
+(progn
+  ;; gtags キーバインド有効化
+  ;; ※この位置だと変数定義前にgtagsの読み込みが行われるらしいので、
+  ;; init.elの頭に変数定義のセクションを設けた
+  (setq gtags-suggested-key-mapping t)
+  ;; gtagsインストール(gtags-mode...マイナーモード)
+  (when (require 'gtags nil t)
+    ;; c,c++を読み込んだ時に起動（フック）
+    (add-hook 'c-mode-common-hook 'gtags-mode)
+    (add-hook 'c++-mode-common-hook 'gtags-mode)
+    ;; 読み込み専用モード
+    ;; (setq view-read-only t)
+    ;; (setq gtags-read-only t)
+    ;; M-*で戻るとき、戻る前のバッファを削除
+    (setq gtags-pop-delete t)))
 
 
 ;; ^^^ ovtave ^^^^^
