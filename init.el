@@ -831,7 +831,9 @@
     ;; (setq view-read-only t)
     ;; (setq gtags-read-only t)
     ;; M-*で戻るとき、戻る前のバッファを削除
-    (setq gtags-pop-delete t)))
+    (setq gtags-pop-delete t)
+    ;; パスを相対表示にする
+    (setq gtags-path-style 'relative)))
 
 
 ;; ^^^ ovtave ^^^^^
