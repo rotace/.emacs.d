@@ -745,6 +745,8 @@
 ;;; P80 C-hをバックスペースにする
 ;; 入力されるキーシーケンスを置き換える
 ;; ?\C-?はDELのキーシケンス
+(keyboard-translate ?\C-h ?\C-?)
+;; emacsclient用に、フックでkeyboard-translate起動
 (add-hook 'after-make-frame-functions
 	  (lambda (f) (with-selected-frame f
 			(keyboard-translate ?\C-h ?\C-?))))
