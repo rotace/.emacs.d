@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: doxhead
-# key: doxhead
+# key: doxh
 # --
 !>
 !! @file ${1:}

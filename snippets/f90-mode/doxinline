@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: doxinline
+# key: doxi
+# --
+!>< $0 !>

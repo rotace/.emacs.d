@@ -2,8 +2,8 @@
 # name: doxfunc
 # key: doxf
 # --
-/** $0
- * @param
- * @return
- * @retval
- */
+!> $0
+!! @param
+!! @return
+!! @retval
+!>
