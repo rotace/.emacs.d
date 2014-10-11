@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: doxhead
+# key: doxhead
+# --
+!>
+!! @file ${1:}
+!! @brief ${2:}
+!!
+!! @author ${3:Shibata}
+!! @date 2014-${4:}
+!!
+!>
