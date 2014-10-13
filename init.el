@@ -666,7 +666,21 @@
 ;; F6 で whitespace-mode をトグル
 (define-key global-map (kbd "<f6>") 'global-whitespace-mode)
 
-
+;; ^^^ flymake.el ^^^^
+;; ^^^^^^^^^^^^^^^^^^^
+;; M-x flymake-mode でflymake起動
+(when (require 'flymake)
+  (message "<<LOAD>> flymake")
+  ;; ;; .cpp 用flymake設定(単独プログラムのみ有効)
+  ;; (defun flymake-cpp-init ()
+  ;;   (let* ((temp-file (flymake-init-create-temp-buffer-copy
+  ;; 		       'flymake-create-temp-inplace))
+  ;; 	   (local-file (file-relative-name
+  ;; 			temp-file
+  ;; 			(file-name-directory buffer-file-name))))
+  ;;     (list "g++" (list "-Wall" "-Wextra" "-fsyntax-only" local-file))))
+  ;; (push '("\\.cpp$" flymake-cpp-init) flymake-allowed-file-name-masks)
+  )
 
 
 
