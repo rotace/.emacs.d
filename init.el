@@ -798,7 +798,7 @@
 ;; C-c cでcompileコマンドを呼び出す
 (define-key mode-specific-map "c" 'compile)
 ;; C-c C-zでshellコマンドを呼び出す
-(define-key mode-specific-map "\C-z" 'multi-term)
+;; (define-key mode-specific-map "\C-z" 'ansi-term)
 
 
 
