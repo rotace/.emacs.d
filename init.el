@@ -794,7 +794,7 @@
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ;; M-k でカレントバッファを閉じる
-;; (define-key global-map (kbd "M-k") 'kill-this-buffer)
+(define-key global-map (kbd "M-k") 'kill-this-buffer)
 ;; C-c cでcompileコマンドを呼び出す
 (define-key mode-specific-map "c" 'compile)
 ;; C-c C-zでshellコマンドを呼び出す
