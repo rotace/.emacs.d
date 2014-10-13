@@ -2,7 +2,7 @@
 ;;       Emacs 設定ファイル
 ;;                           created by shibata
 ;; ***************************************************** ;;
-(message "<<log>>#########...starting Emacs")
+(message "<<Start>>...starting Emacs")
 
 ;; set variable
 (setq gtags-suggested-key-mapping t)
@@ -48,17 +48,17 @@
 
 ;; ======「Emacs実践入門」4.2章 環境に応じた設定の分岐 =========
 ;;; P65 CUIとGUIによる分岐
-;; ターミナル以外はツールバー、スクロールバーを非表示
-(when window-system
-  ;; tool-barを非表示
-  (tool-bar-mode 0)
-  ;; scroll-barを非表示
-  (scroll-bar-mode 0))
+;; ;; ターミナル以外はツールバー、スクロールバーを非表示
+;; (when window-system
+;;   ;; tool-barを非表示
+;;   (tool-bar-mode 0)
+;;   ;; scroll-barを非表示
+;;   (scroll-bar-mode 0))
 
-;; CocoaEmacs以外はメニューバーを非表示
-(unless (eq window-system 'ns)
-  ;; menu-barを非表示
-  (menu-bar-mode 0))
+;; ;; CocoaEmacs以外はメニューバーを非表示
+;; (unless (eq window-system 'ns)
+;;   ;; menu-barを非表示
+;;   (menu-bar-mode 0))
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ;; ======「Emacs実践入門」5.3章 環境変数の設定=================
@@ -156,7 +156,8 @@
 ;; マイナーモードキー衝突問題を解決する
 ;; ▽要拡張機能インストール
 ;; (install-elisp-from-emacswiki "minor-mode-hack.el")
-(require 'minor-mode-hack nil t)
+(when (require 'minor-mode-hack nil t)
+  (message "<<LOAD>> minor-mode-hack"))
 
 
 
@@ -166,7 +167,6 @@
 
 
 
-(message "<<log>>#########...screen config")
 ;; ########s##############################################
 ;;     画面設定
 ;; ######################################################
@@ -232,7 +232,7 @@
 ;;; P90 タイトルバーにファイルのフルパスを表示
 (setq frame-title-format "%f")
 ;; 行番号を常に表示する
-;; (global-linum-mode t)
+(global-linum-mode t)
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ;; ======「Emacs実践入門」5.6章 表示・装飾に関する設定===========
@@ -249,6 +249,7 @@
 ;; ▽要拡張機能インストール(ELPA23)v6.6.1
 ;; (package-install 'color-theme)
 (when (require 'color-theme nil t)
+  (message "<<LOAD>> color-theme")
   ;; テーマを読み込むための設定
   (color-theme-initialize)
   ;; テーマ変更する
@@ -284,7 +285,6 @@
 
 
 
-(message "<<log>>#########...backup autosave hook")
 ;; ######################################################
 ;;     バックアップ・オートセーブ・フック
 ;; ######################################################
@@ -342,7 +342,6 @@
 
 
 
-(message "<<log>>#########...setting Anything")
 ;; ######################################################
 ;;     Anything 設定
 ;; ######################################################
@@ -354,6 +353,7 @@
 ;; ▽要拡張機能インストール(auto-install)
 ;; (auto-install-batch "anything")
 (when (require 'anything nil t)
+  (message "<<LOAD>> anything")
   (setq
    ;; 候補を表示するまでの時間。デフォルトは0.5
    anything-idle-delay 0.3
@@ -404,7 +404,6 @@
 
 
 
-(message "<<log>>#########...setting tools")
 ;; ######################################################
 ;;     入力支援ツール
 ;; ######################################################
@@ -416,7 +415,8 @@
 ;; ▽要拡張機能インストール(ELPA23)
 ;; (package-install 'auto-complete)
 ;; auto-complete設定
-(when (require 'auto-complete-config nil t) 
+(when (require 'auto-complete-config nil t)
+  (message "<<LOAD>> auto-complete-config")
   (add-to-list 'ac-dictionary-directories 
     "~/.emacs.d/elisp/ac-dict")
   (define-key ac-mode-map (kbd "M-TAB") 'auto-complete)
@@ -432,6 +432,7 @@
 ;; (auto-install-from-emacswiki "color-moccur.el")
 ;; color-moccurの設定
 (when (require 'color-moccur nil t)
+  (message "<<LOAD>> color-moccur")
   ;; M-oにoccur-by-moccurを割り当て
   (define-key global-map (kbd "M-o") 'occur-by-moccur)
   ;; スペース区切りでAND検索
@@ -450,6 +451,7 @@
 ;; ▽要拡張機能インストール(auto-install)※先にcolor-moccur.elをインストールする
 ;; (install-elisp "http://svn.coderepos.org/share/lang/elisp/anything-c-moccur/trunk/anything-c-moccur.el")
 (when (require 'anything-c-moccur nil t)
+  (message "<<LOAD>> anything-c-moccur")
   (setq
    ;; anything-c-moccur用 `anything-idle-delay'
    anything-c-moccur-anything-idle-delay 0.1
@@ -468,11 +470,12 @@
 ;; ▽要拡張機能インストール(auto-install)
 ;; (auto-install-from-emacswiki "moccur-edit.el")
 ;; moccur-editの設定
-(require 'moccur-edit nil t)
-;; moccur-edit-finish-editと同時にファイルを保存する
-(defadvice moccur-edit-change-file
-  (after save-after-moccur-edit-buffer activate)
-  (save-buffer))
+(when (require 'moccur-edit nil t)
+  (message "<<LOAD>> moccur-edit")
+  ;; moccur-edit-finish-editと同時にファイルを保存する
+  (defadvice moccur-edit-change-file
+    (after save-after-moccur-edit-buffer activate)
+    (save-buffer)))
 
 ;; ^^^^ wgrep.el ^^^^^^
 ;; ^^^^^^^^^^^^^^^^^^^^
@@ -480,7 +483,8 @@
 ;; ▽要拡張機能インストール(ELPA23)
 ;; (package-install 'wgrep)
 ;; wgrepの設定
-(require 'wgrep nil t)
+(when (require 'wgrep nil t)
+  (message "<<LOAD>> wgrep"))
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ;; ======「Emacs実践入門」6.5章 さまざまな履歴管理==============
@@ -490,6 +494,7 @@
 ;; ▽要拡張機能インストール(auto-install)
 ;; (install-elisp-from-emacswiki "redo+.el")
 (when (require 'redo+ nil t)
+  (message "<<LOAD>> redo+")
   ;; C-' にリドゥを割り当てる
   ;; (global-set-key (kbd "C-'") 'redo)
   ;; 日本語キーボードの場合C-. などがよいかも
@@ -503,6 +508,7 @@
 ;; (install-elisp "http://cx4a.org/pub/undohist.el")
 ;; undohistの設定
 (when (require 'undohist nil t)
+  (message "<<LOAD>> undohist")
   (undohist-initialize))
 
 ;; ^^^ undo-tree.el ^^^^
@@ -512,6 +518,7 @@
 ;; (package-install 'undo-tree)
 ;; undo-treeの設定
 (when (require 'undo-tree nil t)
+  (message "<<LOAD>> undo-tree")
   (global-undo-tree-mode))
 
 ;; ^^^ point-undo ^^^^
@@ -521,6 +528,7 @@
 ;; (auto-install-from-emacswiki "point-undo.el")
 ;; point-undoの設定
 (when (require 'point-undo nil t)
+  (message "<<LOAD>> point-undo")
   ;; (define-key global-map [f5] 'point-undo)
   ;; (define-key global-map [f6] 'point-redo)
   ;; 筆者のお勧めキーバインド
@@ -548,6 +556,7 @@
 ;; ▽要拡張機能インストール(auto-install)
 ;; (auto-install-batch "sequential-command")
 (when (require 'sequential-command-config nil t)
+  (message "<<LOAD>> sequential-command-config")
   (sequential-command-setup-keys))
 
 ;; ^^^ autoinsert.el ^^^^
@@ -569,6 +578,7 @@
 ;; ▽要拡張機能インストール(ELPA23)
 ;; (package-install 'yasnippet)
 (when(require 'yasnippet nil t)
+  (message "<<LOAD>> yasnippet")
   (setq yas-snippet-dirs
 	'("~/.emacs.d/snippets"		;作成するスニペットを格納
 	  "~/.emacs.d/elpa/yasnippet-0.8.0/snippets"))
@@ -588,7 +598,6 @@
 
 
 
-(message "<<log>>#########...programing tools")
 ;; ######################################################
 ;;     開発支援ツール
 ;; ######################################################
@@ -603,6 +612,7 @@
 ;; (auto-install-from-emacswiki "anything-exuberant-ctags.el")
 ;; AnythingからTAGSを利用しやすくするコマンド作成
 (when (and (require 'anything-gtags nil t)
+	   (message "<<LOAD>> anything-gtags")
 	   ;; (require 'anything-exuberant-ctags nil t)
 	   )
   ;; anything-for-tags用のソースを定義
@@ -629,8 +639,10 @@
 ;; 文章を折りたたむ fold-dwim
 ;; ▽要拡張機能インストール(auto-install)
 ;; (install-elisp "http://www.dur.ac.uk/p.j.heslin/Software/Emacs/Download/fold-dwim.el")
-(require 'hideshow nil t)
-(require 'fold-dwim nil t)
+(when (require 'hideshow nil t)
+  (message "<<LOAD>> hideshow"))
+(when (require 'fold-dwim nil t)
+  (message "<<LOAD>> fold-dwim"))
 (global-set-key (kbd "C-c h") 'hs-minor-mode)
 (global-set-key (kbd "C-c f") 'fold-dwim-toggle)
 (global-set-key (kbd "C-c g") 'fold-dwim-hide-all)
@@ -664,7 +676,6 @@
 
 
 
-(message "<<log>>#########...other utilities")
 ;; ######################################################
 ;;     その他ユーティリティ
 ;; ######################################################
@@ -683,6 +694,7 @@
 ;; (package-install 'multi-term)
 ;; multi-termの設定
 (when (require 'multi-term nil t)
+  (message "<<LOAD>> multi-term")
   ;; 使用するシェルを指定
   (setq multi-term-program "/bin/bash"))
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -737,7 +749,6 @@
 
 
 
-(message "<<log>>#########...keybinding")
 ;; ######################################################
 ;;     その他キーバインド設定
 ;; ######################################################
@@ -758,11 +769,11 @@
 ;; 折り返しトグルコマンド
 (define-key global-map (kbd "C-c l") 'toggle-truncate-lines)
 ;; "C-t" でウィンドウを切り替える。初期値はtranspose-chars
-(define-key global-map (kbd "C-t") 'other-window)
+;; (define-key global-map (kbd "C-t") 'other-window)
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ;; M-k でカレントバッファを閉じる
-(define-key global-map (kbd "M-k") 'kill-this-buffer)
+;; (define-key global-map (kbd "M-k") 'kill-this-buffer)
 ;; C-c cでcompileコマンドを呼び出す
 (define-key mode-specific-map "c" 'compile)
 ;; C-c C-zでshellコマンドを呼び出す
@@ -772,7 +783,7 @@
 
 
 
-(message "<<log>>#########...environmental dependent tools")
+
 ;; ######################################################
 ;;     環境依存のあるElisp (バージョン依存)
 ;; ######################################################
@@ -824,6 +835,7 @@
 ;; ^^^ cmake ^^^^^
 ;; ^^^^^^^^^^^^^^^
 (when (require 'cmake-mode nil t) ; Add cmake listfile names to the mode list.
+  (message "<<LOAD>> cmake-mode")
   (setq auto-mode-alist
 	(append
 	 '(("CMakeLists\\.txt\\'" . cmake-mode))
@@ -842,6 +854,7 @@
   (setq gtags-suggested-key-mapping t)
   ;; gtagsインストール(gtags-mode...マイナーモード)
   (when (require 'gtags nil t)
+    (message "<<LOAD>> gtags")
     ;; c,c++を読み込んだ時に起動（フック）
     (add-hook 'c-mode-common-hook 'gtags-mode)
     (add-hook 'c++-mode-common-hook 'gtags-mode)
@@ -873,6 +886,7 @@
 ;; ▽要拡張機能インストール(wget)
 ;; http://www.yatex.org/yatex1.77.tar.gz
 (when (require 'yatex nil t)
+  (message "<<LOAD>> yatex")
   (setq auto-mode-alist
 	(cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
   (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
