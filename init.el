@@ -671,6 +671,13 @@
 ;; M-x flymake-mode でflymake起動
 (when (require 'flymake)
   (message "<<LOAD>> flymake")
+  ;; error無視設定
+  (defadvice flymake-post-syntax-check (before flymake-force-check-was-interrupted)
+    (setq flymake-check-was-interrupted t))
+  (ad-activate 'flymake-post-syntax-check)
+  ;; .hpp をflymakeの対象に追加する
+  (push '("\\.hpp\\'" flymake-master-make-header-init flymake-master-cleanup)
+	flymake-allowed-file-name-masks)
   ;; ;; .cpp 用flymake設定(単独プログラムのみ有効)
   ;; (defun flymake-cpp-init ()
   ;;   (let* ((temp-file (flymake-init-create-temp-buffer-copy
