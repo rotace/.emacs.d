@@ -642,10 +642,13 @@
 (when (require 'hideshow nil t)
   (message "<<LOAD>> hideshow"))
 (when (require 'fold-dwim nil t)
-  (message "<<LOAD>> fold-dwim"))
-(global-set-key (kbd "C-c h") 'hs-minor-mode)
-(global-set-key (kbd "C-c f") 'fold-dwim-toggle)
-(global-set-key (kbd "C-c g") 'fold-dwim-hide-all)
+  (message "<<LOAD>> fold-dwim")
+  ;; 'hs-minor-mode　起動
+  (add-hook 'c++-mode-hook 'hs-minor-mode)
+  (add-hook 'fortran-mode-hook 'hs-minor-Mode)
+  (global-set-key (kbd "<f7>")     'fold-dwim-toggle)
+  (global-set-key (kbd "<S-f7>")   'fold-dwim-hide-all)
+  (global-set-key (kbd "<S-M-f7>") 'fold-dwim-show-all))
 
 ;;; 改行やタブを可視化する whitespace-mode
 (setq whitespace-display-mappings
