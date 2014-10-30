@@ -893,6 +893,8 @@
 
 ;; ^^^ ovtave ^^^^^
 ;; ^^^^^^^^^^^^^^^^
+;; ▽要拡張機能インストール(yum)
+;; yum -y install --enablerepo=epel install octave
 ;; octave-mode
 (autoload 'octave-mode "octave-mod" nil t)
 (setq auto-mode-alist
@@ -952,4 +954,17 @@
 					; 自動改行を抑制する
   ;; (add-hook 'yatex-mode-hook'(lambda ()(setq auto-fill-function nill)))
   )
+
+;; ^^^ aspell ^^^^
+;; ^^^^^^^^^^^^^^^
+;; ▽要拡張機能インストール(yum)
+;; yum -y install --nogpgcheck aspell-en aspell
+;; run with Japanese
+(setq-default ispell-program-name "aspell")
+(eval-after-load "ispell"
+  '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
+;; run on specific mode
+(add-hook 'yatex-mode-hook
+	  '(lambda () (flyspell-mode)))
+
 
