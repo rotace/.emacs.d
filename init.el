@@ -958,7 +958,7 @@
 ;; ^^^ aspell ^^^^
 ;; ^^^^^^^^^^^^^^^
 ;; ▽要拡張機能インストール(yum)
-;; yum -y install --nogpgcheck aspell-en aspell
+;; yum -y install --enablerepo=epel aspell-en aspell
 ;; run with Japanese
 (setq-default ispell-program-name "aspell")
 (eval-after-load "ispell"
