@@ -158,6 +158,13 @@
 ;; (install-elisp-from-emacswiki "minor-mode-hack.el")
 (when (require 'minor-mode-hack nil t)
   (message "<<LOAD>> minor-mode-hack"))
+;; Tips
+;; マイナーモードの優先順位をエコーエリアに表示
+;; M-x show-minor-mode-map-priority
+;; マイナーモードの優先度を下げる
+;; (lower-minor-mode-map-alist '**-mode)
+;; マイナーモードの優先度をあげる
+;; (raise-minor-mode-map-alist '**-mode)
 
 
 
@@ -500,6 +507,7 @@
   ;; 日本語キーボードの場合C-. などがよいかも
   (global-set-key (kbd "C-.") 'redo)
   ) ; ←ここでC-x C-eで設定反映
+
 
 ;; ^^^ undohist.el ^^^^
 ;; ^^^^^^^^^^^^^^^^^^^^
@@ -963,8 +971,12 @@
 (setq-default ispell-program-name "aspell")
 (eval-after-load "ispell"
   '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
-;; run on specific mode
-(add-hook 'yatex-mode-hook
-	  '(lambda () (flyspell-mode)))
+;; ;; run on specific mode
+;; (add-hook 'yatex-mode-hook
+;; 	  '(lambda () (flyspell-mode)))
+(global-set-key (kbd "<f8>") 'flyspell-mode)
+;; Tips
+;; M-x ispell-*
+;; M-x flyspell-*
 
 
