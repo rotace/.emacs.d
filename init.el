@@ -810,6 +810,8 @@
 (define-key mode-specific-map "c" 'compile)
 ;; C-c C-zでshellコマンドを呼び出す
 ;; (define-key mode-specific-map "\C-z" 'ansi-term)
+;; zenkaku-hankaku で日本語入力に切り替える
+(define-key global-map [zenkaku-hankaku] 'toggle-input-method)
 
 
 
