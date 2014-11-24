@@ -4,4 +4,6 @@ auto-save-list/*
 ac-comphist.dat
 *~
 wget-log*
+#*
+.#*
 
