@@ -8,6 +8,13 @@
 (setq gtags-suggested-key-mapping t)
 
 
+;; ######################################################
+;;    elisp記述補助コマンド
+;; ######################################################
+
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 
 ;; ######################################################
 ;;     起動・設定ファイル・ロードパス
@@ -642,21 +649,12 @@
   (define-key global-map (kbd "M-t") 'anything-for-tags))
 ;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-;; ^^^ fold-dwim.el ^^^^
-;; ^^^^^^^^^^^^^^^^^^^^^
-;; 文章を折りたたむ fold-dwim
-;; ▽要拡張機能インストール(auto-install)
-;; (install-elisp "http://www.dur.ac.uk/p.j.heslin/Software/Emacs/Download/fold-dwim.el")
-(when (require 'hideshow nil t)
-  (message "<<LOAD>> hideshow"))
-(when (require 'fold-dwim nil t)
-  (message "<<LOAD>> fold-dwim")
-  ;; 'hs-minor-mode　起動
-  (add-hook 'c++-mode-hook 'hs-minor-mode)
-  (add-hook 'fortran-mode-hook 'hs-minor-Mode)
-  (global-set-key (kbd "<f7>")     'fold-dwim-toggle)
-  (global-set-key (kbd "<S-f7>")   'fold-dwim-hide-all)
-  (global-set-key (kbd "<S-M-f7>") 'fold-dwim-show-all))
+;; TODOなどをハイライトする(c,c++,fortran)
+(defun highlight-flag ()
+  (font-lock-add-keywords nil
+	     '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t))))
+(add-hook 'f90-mode-hook 'highlight-flag)
+(add-hook 'c-mode-common-hook 'highlight-flag)
 
 ;;; 改行やタブを可視化する whitespace-mode
 (setq whitespace-display-mappings
@@ -676,6 +674,23 @@
 ;; (setq whitespace-space-regexp "\\(\x3000+\\)")
 ;; F6 で whitespace-mode をトグル
 (define-key global-map (kbd "<f6>") 'global-whitespace-mode)
+;; ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+;; ^^^ fold-dwim.el ^^^^
+;; ^^^^^^^^^^^^^^^^^^^^^
+;; 文章を折りたたむ fold-dwim
+;; ▽要拡張機能インストール(auto-install)
+;; (install-elisp "http://www.dur.ac.uk/p.j.heslin/Software/Emacs/Download/fold-dwim.el")
+(when (require 'hideshow nil t)
+  (message "<<LOAD>> hideshow"))
+(when (require 'fold-dwim nil t)
+  (message "<<LOAD>> fold-dwim")
+  ;; 'hs-minor-mode　起動
+  (add-hook 'c++-mode-hook 'hs-minor-mode)
+  (add-hook 'fortran-mode-hook 'hs-minor-Mode)
+  (global-set-key (kbd "<f7>")     'fold-dwim-toggle)
+  (global-set-key (kbd "<S-f7>")   'fold-dwim-hide-all)
+  (global-set-key (kbd "<S-M-f7>") 'fold-dwim-show-all))
 
 ;; ^^^ flymake.el ^^^^
 ;; ^^^^^^^^^^^^^^^^^^^
