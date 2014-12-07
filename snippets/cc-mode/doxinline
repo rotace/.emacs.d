@@ -2,4 +2,4 @@
 # name: doxinline
 # key: doxi
 # --
-/**< $0 **/
+///< $0

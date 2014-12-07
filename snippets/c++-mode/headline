@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: headline
+# key: headline
+# --
+
+
+// * * * * * * * * * * Template Specializations * * * * * * * * * * * //
+
+// * * * * * * * * * * * * Static Data Members  * * * * * * * * * * * //
+
+// * * * * * * * * * * * Static Member Functions  * * * * * * * * * * //
+
+// * * * * * * * * * * * * * Constructors * * * * * * * * * * * * * * //
+
+// * * * * * * * * * * * * * * Destructor * * * * * * * * * * * * * * //
+
+// * * * * * * * * * * * * Member Functions * * * * * * * * * * * * * //
+
+// * * * * * * * * * * * * Member Operators * * * * * * * * * * * * * //

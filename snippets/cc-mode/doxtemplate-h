@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: doxtemplate-h
+# key: doxtemph
+# --
+//----------------------------------------------------------------------
+/**
+@file ${1:`(file-name-nondirectory (buffer-file-name))`}
+@brief $2
+
+@author ${3:Shibata}
+@date ${4:`(format-time-string "%Y-%m-%d(%a) %H:%M:%S" (current-time))`}
+   
+***********************************************************************/
+ 
+ #ifndef ${5:_`(upcase (file-name-nondirectory (file-name-sans-extension (buffer-file-name))))`_H_}
+#define $5
+
+$0
+
+#endif /* $5 */

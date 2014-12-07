@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: doxfunc
-# key: doxf
-# --
-!> $0
-!! @param
-!! @return
-!! @retval
-!>

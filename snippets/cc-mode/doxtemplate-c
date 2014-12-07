@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: doxtemplate-c
+# key: doxtempc
+# --
+//----------------------------------------------------------------------
+/**
+@file ${1:`(file-name-nondirectory (buffer-file-name))`}
+@brief $2
+
+@author ${3:Shibata}
+@date ${4:`(format-time-string "%Y-%m-%d(%a) %H:%M:%S" (current-time))`}
+   
+***********************************************************************/
+
+$0

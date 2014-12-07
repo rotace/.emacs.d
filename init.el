@@ -580,11 +580,11 @@
 (auto-insert-mode)
 (setq auto-insert-directory "~/.emacs.d/insert/")
 (define-auto-insert "\\.sh$" "shellscript-template.sh")
-;; (define-auto-insert "\\.C$" "c++-template.C")
-;; (define-auto-insert "\\.H$" "c++-template.H")
-;; (define-auto-insert "\\.c$" "c-template.c")
-;; (define-auto-insert "\\.h$" "c-template.h")
-(define-auto-insert "\\.f90$" "fortran-template.f90")
+(define-auto-insert "\\.cpp" (lambda () (insert "doxtempc")(yas/expand)))
+(define-auto-insert "\\.hpp" (lambda () (insert "doxtemph")(yas/expand)))
+(define-auto-insert "\\.c" (lambda () (insert "doxtempc")(yas/expand)))
+(define-auto-insert "\\.h" (lambda () (insert "doxtemph")(yas/expand)))
+
 
 
 ;; ^^^ yasnippet.el ^^^^
