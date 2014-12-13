@@ -584,10 +584,12 @@
 (auto-insert-mode)
 (setq auto-insert-directory "~/.emacs.d/insert/")
 (define-auto-insert "\\.sh$" "shellscript-template.sh")
-(define-auto-insert "\\.cpp" (lambda () (insert "doxtempc")(yas/expand)))
-(define-auto-insert "\\.hpp" (lambda () (insert "doxtemph")(yas/expand)))
 (define-auto-insert "\\.c" (lambda () (insert "doxtempc")(yas/expand)))
 (define-auto-insert "\\.h" (lambda () (insert "doxtemph")(yas/expand)))
+(define-auto-insert "\\.cc" (lambda () (insert "doxtestc")(yas/expand)))
+(define-auto-insert "\\.cpp" (lambda () (insert "doxtempc")(yas/expand)))
+(define-auto-insert "\\.hpp" (lambda () (insert "doxtemph")(yas/expand)))
+
 
 
 
