@@ -522,9 +522,13 @@
 ;; ▽要拡張機能インストール(auto-install)
 ;; (install-elisp "http://cx4a.org/pub/undohist.el")
 ;; undohistの設定
-(when (require 'undohist nil t)
-  (message "<<LOAD>> undohist")
-  (undohist-initialize))
+;; (when (require 'undohist nil t)
+;;   (message "<<LOAD>> undohist")
+;;   (undohist-initialize))
+;; 2014/12/13
+;; Invalid read syntax :# の発生原因がundohist.elであると判明．．．使用を中止する
+;; undohist.elの最新版は，MELPAで配布されている模様
+;; なんとなく，emacs23との互換性が心配なので，導入を見送る
 
 ;; ^^^ undo-tree.el ^^^^
 ;; ^^^^^^^^^^^^^^^^^^^^^
