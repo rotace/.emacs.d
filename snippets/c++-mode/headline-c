@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: headline-c
+# key: headlinec
+# --
+
+// * * * * * * * * * * * *  Static Data Members * * * * * * * * * * * //
+// * * * * * * * * * * *  Static Member Functions * * * * * * * * * * //
+// * * * * * * * * * * * Private Member Functions * * * * * * * * * * //
+// ---- Init & Release
+// * * * * * * * * * * * * * Copy Members * * * * * * * * * * * * * * //
+// ---- Copy Function
+// ---- Copy Function
+// ---- Copy Constructor
+// * * * * * * * * * * * * * Constructors * * * * * * * * * * * * * * //
+// * * * * * * * * * * * * * * Destructor * * * * * * * * * * * * * * //
+// * * * * * * * * * * * * Member Functions * * * * * * * * * * * * * //
+// ---- Getter
+// ---- Setter
+// * * * * * * * * * * * * Member Operators * * * * * * * * * * * * * //
+// * * * * * * * * * * Template Specializations * * * * * * * * * * * //

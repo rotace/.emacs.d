@@ -6,6 +6,9 @@
 
 ;; set variable
 (setq gtags-suggested-key-mapping t)
+;; 無効コマンドを有効化
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
 
 
 ;; ######################################################

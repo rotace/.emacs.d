@@ -1,0 +1,45 @@
+# -*- mode: snippet -*-
+# name: headline-h
+# key: headlineh
+# --
+$0
+/*--------------------------------------------------------------------*
+                          Class Declaration (BEGIN)
+ *--------------------------------------------------------------------*/
+class ${1:Name}
+{
+public:
+  // ##### enum
+  // ##### Static Data Members
+  // ##### Static Member Functions
+private:
+  // ##### Private Data Members
+  // ##### Private Member Functions
+  // ---- Init & Release
+  
+  // ##### Copy (prohibited)
+  // ---- Copy Function (prohibited)
+  bool Copy(const $1& ${2:name});
+  // ---- Copy Operator (prohibited)
+  $1& operator=(const $1& $2);
+  // ---- Copy Constructor (prohibited)
+  $1(const $1& $2);
+  
+public:
+  // ##### Constructors
+  $1();
+  // ##### Destructor
+  virtual ~$1();
+  // ##### Member Functions
+  // ---- Getter
+  // ---- Setter
+
+  // ##### Member Operators
+};
+/*--------------------------------------------------------------------*
+                         Class Declaration (END)
+ *--------------------------------------------------------------------*/
+// ### typedef
+
+
+// * * * * * * * * * * Inline Functions   * * * * * * * * * * * * * * //
