@@ -12,4 +12,6 @@
    
 ***********************************************************************/
 
+ #include "${5:`(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`.hpp}"
+
 $0

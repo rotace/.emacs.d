@@ -17,11 +17,11 @@
    
 ***********************************************************************/
 
-#include ${5:"`
+#include "${5:`
 (substring
 (file-name-nondirectory
 (file-name-sans-extension
-(buffer-file-name))) 0 -5)`.hpp"}
+(buffer-file-name))) 0 -5)`.hpp}"
 #include "gtest/gtest.h"
 
 $0
