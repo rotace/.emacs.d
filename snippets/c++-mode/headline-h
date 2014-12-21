@@ -17,15 +17,15 @@ private:
   // ##### Private Member Functions
   // ---- Init & Release
   
-  // ##### Copy (prohibited)
-  // ---- Copy Function (prohibited)
-  bool Copy(const $1& ${2:name});
+  // ##### Copy
+  // ---- Copy Function
+  bool Copy(const $1& ${2:name});	// prohibited
   
-  // ---- Copy Operator (prohibited)
-  $1& operator=(const $1& $2);
+  // ---- Copy Operator
+  $1& operator=(const $1& $2);		// prohibited
   
-  // ---- Copy Constructor (prohibited)
-  $1(const $1& $2);
+  // ---- Copy Constructor
+  $1(const $1& $2);			// prohibited
   
 public:
   // ##### Constructors

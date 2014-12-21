@@ -9,7 +9,7 @@
 // ---- Init & Release
 // * * * * * * * * * * * * * Copy Members * * * * * * * * * * * * * * //
 // ---- Copy Function
-// ---- Copy Function
+// ---- Copy Operator
 // ---- Copy Constructor
 // * * * * * * * * * * * * * Constructors * * * * * * * * * * * * * * //
 // * * * * * * * * * * * * * * Destructor * * * * * * * * * * * * * * //
