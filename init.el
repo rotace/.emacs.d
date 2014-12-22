@@ -1009,3 +1009,12 @@
 ;; M-x flyspell-*
 
 
+;; ^^^ aspell ^^^^
+;; ^^^^^^^^^^^^^^^
+;; ▽要拡張機能インストール(yum)
+;; yum -y install --enablerepo=rotacepkgs emacs-mozc
+(when (require 'mozc nil t)
+  (message "<<LOAD>> mozc")
+  (setq default-input-method "japanese-mozc"))
+
+
