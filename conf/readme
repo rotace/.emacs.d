@@ -1,4 +1,0 @@
-This is for separated configure file.
-If you want to use init.el only, this directory isn't need.
-If you want to separate init.el because it has a lot of text,
-you can use this directory to put the separated files.
