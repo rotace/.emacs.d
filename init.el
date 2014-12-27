@@ -7,7 +7,7 @@
 (message "<<Start>>...starting Emacs")
 
 ;; set variable
-;; (setq gtags-suggested-key-mapping t)
+(setq gtags-suggested-key-mapping t)
 
 
 ;; ######################################################
