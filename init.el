@@ -222,7 +222,7 @@
         (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
             (normal-top-level-add-subdirs-to-load-path))))))
 ;; 引数のディレクトリとそのサブディレクトリをload-pathに追加
-(add-to-load-path "elisp" "conf")
+;; (add-to-load-path "elisp" "conf")
 ;; 環境変数の設定
 (add-to-list 'exec-path "/opt/local/bin")
 (add-to-list 'exec-path "/usr/local/bin")
