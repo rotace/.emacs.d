@@ -470,7 +470,7 @@
 (when(require 'yasnippet nil t)
   (message "<<LOAD>> yasnippet")
   (setq yas-snippet-dirs
-	'("~/.emacs.d/snippets"))	;作成するスニペットを格納
+  	(cons "~/.emacs.d/snippets" yas-snippet-dirs)) ;作成するスニペットを格納
   (yas-global-mode 1)
   ;; 単語展開キーバインド
   (custom-set-variables '(yas-trigger-key "TAB"))
