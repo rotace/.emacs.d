@@ -90,7 +90,7 @@
 	       '(width . 90)
 	       '(height . 70)
 	       '(top . 0)
-	       '(left . 550)
+	       '(left . 1200)
 	       '(font . "VL Gothic-11")
 	       )
 	      initial-frame-alist))
