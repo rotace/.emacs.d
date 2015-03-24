@@ -191,9 +191,9 @@
 (setq initial-frame-alist
       (append (list
 	       '(width . 90)
-	       '(height . 70)
+	       '(height . 60)
 	       '(top . 0)
-	       '(left . 550)
+	       '(left . 1150)
 	       ;; '(font . "VL Gothic-10")
 	       )
 	      initial-frame-alist))
