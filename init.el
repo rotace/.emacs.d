@@ -85,13 +85,22 @@
 (set-face-underline-p 'show-paren-match-face "yellow")
 ;; ------------------------------------------------------
 ;; 起動時のサイズ，表示位置，フォントを指定
+;; (setq initial-frame-alist
+;;       (append (list
+;; 	       '(width  . 90)
+;; 	       '(height . 70)
+;; 	       '(top  . 0)
+;; 	       '(left . 1200)
+;; 	       '(font . "VL Gothic-11")
+;; 	       )
+;; 	      initial-frame-alist))
 (setq initial-frame-alist
       (append (list
-	       '(width . 90)
-	       '(height . 70)
-	       '(top . 0)
-	       '(left . 1200)
-	       '(font . "VL Gothic-11")
+	       '(width  . 90)
+	       '(height . 48)
+	       '(top  . 0)
+	       '(left . 0)
+	       '(font . "VL Gothic-10")
 	       )
 	      initial-frame-alist))
 (setq default-frame-alist initial-frame-alist)
