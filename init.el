@@ -724,7 +724,14 @@
   ;; (push '("\\.cpp$" flymake-cpp-init) flymake-allowed-file-name-masks)
   )
 
-
+;; ^^^ python mode ^^^
+;; ^^^^^^^^^^^^^^^^^^^
+(add-hook 'python-mode-hook
+ '(lambda()
+   (setq indent-tabs-mode t)
+   (setq indent-level 4)
+   (setq python-indent 4)
+   (setq tab-width 4)))
 
 
 
@@ -862,9 +869,9 @@
 
 
 
-     
+
 ;; ######################################################
-;;     環境依存のあるElisp (外部ツール依存) 
+;;     環境依存のあるElisp (外部ツール依存)
 ;; ######################################################
 ;; ホスト環境に依存するので、システム側にインストールすること！
 ;; インストール先の例
@@ -888,7 +895,7 @@
 (setq auto-mode-alist (append '(("\\.gp$" . gnuplot-mode)) auto-mode-alist))
 
 ;; This line binds the function-9 key so that it opens a buffer into
-;; gnuplot mode 
+;; gnuplot mode
 (global-set-key [(f9)] 'gnuplot-make-buffer)
 
 
@@ -1009,7 +1016,7 @@
 ;; M-x flyspell-*
 
 
-;; ^^^ aspell ^^^^
+;; ^^^ mozc   ^^^^
 ;; ^^^^^^^^^^^^^^^
 ;; ▽要拡張機能インストール(yum)
 ;; yum -y install --enablerepo=rotacepkgs emacs-mozc
