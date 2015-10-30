@@ -96,11 +96,11 @@
 ;; 	      initial-frame-alist))
 (setq initial-frame-alist
       (append (list
-	       '(width  . 90)
-	       '(height . 48)
-	       '(top  . 0)
-	       '(left . 0)
-	       '(font . "VL Gothic-10")
+	       ;; '(width  . 90)
+	       ;; '(height . 48)
+	       ;; '(top  . 0)
+	       ;; '(left . 0)
+	       '(font . "VL Gothic-11")
 	       )
 	      initial-frame-alist))
 (setq default-frame-alist initial-frame-alist)

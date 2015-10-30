@@ -2,6 +2,7 @@ backups/*
 undohist/*
 auto-save-list/*
 ac-comphist.dat
+session.*
 *~
 wget-log*
 #*
