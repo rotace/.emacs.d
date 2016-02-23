@@ -65,3 +65,93 @@
   (message "<<LOAD>> sequential-command")
   (sequential-command-setup-keys)
 )
+
+
+
+
+
+
+;; ######################################################
+;;     環境依存のあるElisp (外部ツール依存) 
+;; ######################################################
+;; ホスト環境に依存するので、システム側にインストールすること！
+;; インストール先の例
+;; /usr/share/emacs/2*.*/site-lisp
+;; /usr/share/emacs/site-lisp
+;; /usr/local/share/emacs/2*.*/site-lisp
+;; /usr/local/share/emacs/site-lisp
+
+;; ======================================================
+;; gnuplot
+;; ======================================================
+;; ▽要拡張機能インストール(apt-get)
+;; sudo apt-get -y install gnuplot gnuplot-mode
+;; ※gnuplot-modeも同時にインストールしないと、gnuplot.elがインストールされないので注意
+;; these lines enable the use of gnuplot mode
+(when (require 'gnuplot nil t)
+  (message "<<LOAD>> gnuplot-mode")
+  (autoload 'gnuplot-mode "gnuplot" "gnuplot major mode" t)
+  (autoload 'gnuplot-make-buffer "gnuplot" "open a buffer in gnuplot mode" t)
+
+  ;; this line automatically causes all files with the .gp extension to
+  ;; be loaded into gnuplot mode
+  (setq auto-mode-alist (append '(("\\.gp$" . gnuplot-mode)) auto-mode-alist))
+
+  ;; This line binds the function-9 key so that it opens a buffer into
+  ;; gnuplot mode 
+  (global-set-key [(f9)] 'gnuplot-make-buffer))
+
+
+;; ======================================================
+;; cmake
+;; ======================================================
+(when (require 'cmake-mode nil t) ; Add cmake listfile names to the mode list.
+  (message "<<LOAD>> cmake-mode")
+  (setq auto-mode-alist
+	(append
+	 '(("CMakeLists\\.txt\\'" . cmake-mode))
+	 '(("\\.cmake\\'" . cmake-mode))
+	 auto-mode-alist)))
+
+;; ======================================================
+;; gtags
+;; ======================================================
+;; ▽要拡張機能インストール(wgt)
+;; http://tamacom.com/global/global-6.1.tar.gz
+(progn
+  ;; gtags キーバインド有効化
+  ;; ※この位置だと変数定義前にgtagsの読み込みが行われるらしいので、
+  ;; init.elの頭に変数定義のセクションを設けた
+  (setq gtags-suggested-key-mapping t)
+  ;; gtagsインストール(gtags-mode...マイナーモード)
+  (when (require 'gtags nil t)
+    (message "<<LOAD>> gtags")
+    ;; c,c++を読み込んだ時に起動（フック）
+    (add-hook 'c-mode-common-hook 'gtags-mode)
+    (add-hook 'c++-mode-common-hook 'gtags-mode)
+    ;; 読み込み専用モード
+    ;; (setq view-read-only t)
+    ;; (setq gtags-read-only t)
+    ;; M-*で戻るとき、戻る前のバッファを削除
+    (setq gtags-pop-delete t)
+    ;; パスを相対表示にする
+    (setq gtags-path-style 'relative)))
+
+;; ======================================================
+;; octave
+;; ======================================================
+;; ▽要拡張機能インストール(apt-get)
+;; sudo apt-get -y install install octave
+;; octave-mode
+(when (require 'octave-mod nil t)
+  (message "<<LOAD>> octave")
+  (autoload 'octave-mode "octave-mod" nil t)
+  (setq auto-mode-alist
+	(cons '("\\.m$" . octave-mode) auto-mode-alist))
+  (add-hook 'octave-mode-hook
+	    (lambda()
+	      (abbrev-mode 1)
+	      (auto-fill-mode 1)
+	      (if (eq window-system 'x)
+		  (font-lock-mode 1)))))
+
