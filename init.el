@@ -111,6 +111,45 @@
 
 
 ;; ######################################################
+;; テキスト編集
+;; ######################################################
+;; cua-modeの設定
+(cua-mode t) ; cua-modeをオン
+(setq cua-enable-cua-keys nil) ; CUAキーバインドを無効にする
+;; ------------------------------------------------------
+;;; カーソル位置のファイルパスやアドレスを "C-x C-f" で開く
+(ffap-bindings)
+;; ------------------------------------------------------
+;; TODOなどをハイライトする(c,c++,fortran)
+(defun highlight-flag ()
+  (font-lock-add-keywords nil
+	     '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t))))
+(add-hook 'f90-mode-hook 'highlight-flag)
+(add-hook 'c-mode-common-hook 'highlight-flag)
+;; ------------------------------------------------------
+;;; 改行やタブを可視化する whitespace-mode
+(setq whitespace-display-mappings
+      '((space-mark ?\x3000 [?\□]) ; zenkaku space
+        (newline-mark 10 [8629 10]) ; newlne
+        (tab-mark 9 [187 9] [92 9]) ; tab » 187
+        )
+      whitespace-style
+      '(spaces
+        ;; tabs
+        trailing
+        newline
+        space-mark
+        tab-mark
+        newline-mark))
+;; whitespace-modeで全角スペース文字を可視化　
+;; (setq whitespace-space-regexp "\\(\x3000+\\)")
+;; F6 で whitespace-mode をトグル
+(define-key global-map (kbd "<f6>") 'global-whitespace-mode)
+;; ------------------------------------------------------
+
+
+
+;; ######################################################
 ;;     環境依存のあるElisp (外部ツール依存) 
 ;; ######################################################
 ;; ホスト環境に依存するので、システム側にインストールすること！
