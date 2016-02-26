@@ -31,6 +31,7 @@
   (message "<<LOAD>> helm")
   (helm-mode 1)
   (define-key global-map (kbd "C-x c f") 'helm-find-files)
+  (define-key global-map (kbd "C-x b") 'helm-buffers-list)
   (define-key global-map (kbd "M-y") 'helm-show-kill-ring)
 )
 
