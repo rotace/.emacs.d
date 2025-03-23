@@ -1,10 +1,9 @@
-# emacs lisp (master)
-branch:masterは空のinit.elのみ  
-emacsのバージョンに合わせてbranchをfetchすること。  
+# emacs lisp (for emacs27.1 on Debian Bullseye)
   
-例：emacs24.3の場合  
-    $ cd ~  
-    $ git clone http://github.com/rotace/.emacs.d.git  .emacs.d  
-    $ cd .emacs.d  
-    $ git branch -a				# branchを確認  
-    $ git checkout -b ver24.3 origin/ver24.3  
+## インストール
+```bash
+$ cd; git clone git@github.com:rotace/.emacs.d
+$ git checkout ver27.1
+$ sudo apt install emacs-nox elpa-use-packages
+$ emacs .emacs.d/init.el
+```
