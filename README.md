@@ -9,3 +9,7 @@ $ emacs .emacs.d/init.el
 ```
 GPGkeyのエラーでELPAからパッケージをダウンロードできない場合は、以下を参照。
 https://qiita.com/MeguruMokke/items/eb5cd6d49460d1c1e042
+
+## キーバインド
+### Rust
+* [cargo](https://stable.melpa.org/#/cargo)
