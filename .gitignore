@@ -4,6 +4,7 @@ undohist/*
 auto-save-list/*
 company*
 ac-comphist.dat
+.*
 *~
 wget-log*
 #*
