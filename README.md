@@ -4,6 +4,8 @@
 ```bash
 $ cd; git clone git@github.com:rotace/.emacs.d
 $ git checkout ver27.1
-$ sudo apt install emacs-nox elpa-use-packages
+$ sudo apt install emacs-nox
 $ emacs .emacs.d/init.el
 ```
+GPGkeyのエラーでELPAからパッケージをダウンロードできない場合は、以下を参照。
+https://qiita.com/MeguruMokke/items/eb5cd6d49460d1c1e042
